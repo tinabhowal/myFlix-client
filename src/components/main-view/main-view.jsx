@@ -3,6 +3,7 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView} from "../movie-view/movie-view";
 
 export const MainView = () => {
+    
     const [movies, setMovies] = useState([]);
 
     const [selectedMovie, setSelectedMovie] = useState(null);
@@ -15,25 +16,25 @@ export const MainView = () => {
            
             const moviesFromApi = data.map((movie) => {
                 const oldGenre = Object.entries(movie.Genre).map(([key, value]) => ([
-                  <div>{key} : {value}</div>
+                  <div key={movie._id}>{key} : {value}</div>
                 ]));
 
-            const genre = [...oldGenre];
-                
-                
-            const oldDirector = Object.entries(movie.Director).map(([key,  value]) => ([
-                <div>{key} : {value}</div>
-                ]));
-            const director = [...oldDirector];
+                const genre = [...oldGenre];
+                    
+                    
+                const oldDirector = Object.entries(movie.Director).map(([key,  value]) => ([
+                    <div key={movie._id}>{key} : {value}</div>
+                    ]));
+                const director = [...oldDirector];
 
                 
                 return {
+                
                   id: movie._id,
                   image: movie.ImagePath,
                   title: movie.Title,
                   description: movie.Description,
                   genre,
-
                   actors: movie.Actors,
                   director
                 };
@@ -48,7 +49,8 @@ export const MainView = () => {
         return (
             <MovieView 
             movie={selectedMovie}
-            onBackClick={() => setSelectedMovie(null)} />
+            key={selectedMovie.id}
+            onBackClick={() => setSelectedMovie(null)} > </MovieView>
         )
     }
 
@@ -64,9 +66,8 @@ export const MainView = () => {
                 movie={movie}
                 onMovieClick={(newSelectedMovie) => {
                     setSelectedMovie(newSelectedMovie);
-                }}               
-
-                />
+                }}>
+                </MovieCard>
             ))}
         </div>
     );

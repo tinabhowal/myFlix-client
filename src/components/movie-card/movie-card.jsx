@@ -13,14 +13,15 @@ export const MovieCard = ({movie, onMovieClick}) => {
     );
 };
 
-MovieCard.propTypes = {
-   movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    genre:  PropTypes.array,
-    director:  PropTypes.array
-   }).isRequired,
+// MovieCard.propTypes = {
+//    movie: PropTypes.shape({
+//     title: PropTypes.string.isRequired,
+//     description: PropTypes.string.isRequired,
+//     image: PropTypes.string.isRequired,
+//     genre:  PropTypes.array,
+//     director:  PropTypes.array
+//    }).isRequired,
   
-   onMovieClick: PropTypes.func.isRequired
-};
+//    onMovieClick: PropTypes.func.isRequired
+// };
+
