@@ -69,39 +69,7 @@ export const LoginView = ({onLoggedIn}) => {
   };
   
 
-  // return (
-  //   <form onSubmit={handleSubmit}>
-  //     <label>
-  //       Username:
-  //       <input 
-  //         type="text"
-  //         value={username}
-  //         onChange={(e) => {
-  //           setUsername(e.target.value);
-  //           validateUsername();
-  //         }}
-  //       />
-  //       {usernameError && <p style={{color: "red"}}>{usernameError}</p>}
-  //     </label>
-  //     <br></br>
-  //     <br></br> 
-  //     <label>
-  //       Password:
-  //       <input 
-  //         type="password"
-  //         value={password}
-  //         onChange={(e) => {
-  //           setPassword(e.target.value);
-  //           validatePassword();
-  //         }}
-  //       />
-  //       {passwordError && <p style={{color: "red"}}>{passwordError}</p>}
-  //     </label>
-  //     <br></br>
-  //     <br></br>
-  //     <button type="submit">Submit</button>
-  //   </form>  
-  // );
+  
   return (
     <Form onSubmit={handleSubmit}>
       <Form controlId="formUsername">
