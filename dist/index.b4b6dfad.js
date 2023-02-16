@@ -27202,8 +27202,8 @@ const MainView = ()=>{
         Birthday: "",
         FavoriteMovies: []
     });
-    let [token, setToken] = (0, _react.useState)(null);
-    let storedUsername = localStorage.getItem("username");
+    const [token, setToken] = (0, _react.useState)(null);
+    const storedUsername = localStorage.getItem("username");
     const [username, setUsername] = (0, _react.useState)(storedUsername ? storedUsername : null);
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
@@ -27257,7 +27257,7 @@ const MainView = ()=>{
                 "Content-Type": "application/json"
             }
         }).then((response)=>response.json()).then((data)=>{
-            if (data) setUser({
+            if (data.ok) setUser({
                 ...data
             });
             else alert("User not found.");
@@ -27338,8 +27338,8 @@ const MainView = ()=>{
             username ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navigationBar.NavigationBar), {
                 username: username,
                 onLoggedOut: ()=>{
-                    storedUsername = null;
-                    setToken = null;
+                    setUsername(null);
+                    setToken(null);
                     localStorage.clear();
                 }
             }, void 0, false, {
@@ -47066,6 +47066,24 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
     const [email, setEmail] = (0, _react.useState)(user.email);
     const [birthday, setBirthday] = (0, _react.useState)(user.birthday);
     const [showUpdateForm, setShowUpdateForm] = (0, _react.useState)(false);
+    (0, _react.useEffect)(()=>{
+        if (!token) return;
+        fetch(`https://myflix-gqp8.onrender.com/users`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        }).then((response)=>response.json()).then((data)=>{
+            if (data.user) console.log(data.user);
+            else alert("User not found.");
+        }).catch((error)=>{
+            console.log(error);
+        });
+    }, [
+        username,
+        token
+    ]);
     const handleToggle = (movie)=>{
         toggleFavorite(movie);
     };
@@ -47102,7 +47120,7 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
             Email: email,
             Birthday: birthday
         };
-        fetch(`https://myflix-gqp8.onrender.com/users/${user.username}`, {
+        fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`, {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -47123,7 +47141,7 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
         });
     };
     (0, _react.useEffect)(()=>{
-        if (updateUser) fetch(`https://myflix-gqp8.onrender.com/users/${user.username}`, {
+        if (updateUser) fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -47132,9 +47150,9 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
         }).then((response)=>response.json()).then((data)=>{
             if (data) {
                 setUsername(data.username);
-                setPassword(data.Password);
-                setEmail(data.Email);
-                setBirthday(data.Birthday);
+                setPassword(data.password);
+                setEmail(data.email);
+                setBirthday(data.birthday);
                 setUpdateUser(false);
             }
         }).catch((e)=>{
@@ -47154,7 +47172,7 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                 "Content-Type": "application/json"
             }
         }).then((response)=>response.json()).then((data)=>{
-            if (data.ok) {
+            if (data.user) {
                 alert("Account deleted successfully.");
                 navigate("/signup");
             } else alert("Account deletion failed. Please try again.");
@@ -47172,92 +47190,84 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                             children: "Profile Information"
                         }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 152,
+                            lineNumber: 177,
                             columnNumber: 17
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                            children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                    children: "Username:"
-                                }, void 0, false, {
-                                    fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 154,
-                                    columnNumber: 21
-                                }, undefined),
-                                " ",
-                                user.username
-                            ]
-                        }, void 0, true, {
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                children: [
+                                    "Username",
+                                    user.Username
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/profile-view/profile-view.jsx",
+                                lineNumber: 179,
+                                columnNumber: 21
+                            }, undefined)
+                        }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 153,
+                            lineNumber: 178,
                             columnNumber: 17
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                            children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                    children: "Email:"
-                                }, void 0, false, {
-                                    fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 157,
-                                    columnNumber: 21
-                                }, undefined),
-                                " ",
-                                user.email
-                            ]
-                        }, void 0, true, {
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                children: [
+                                    "Email",
+                                    user.Email,
+                                    " "
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/profile-view/profile-view.jsx",
+                                lineNumber: 182,
+                                columnNumber: 21
+                            }, undefined)
+                        }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 156,
+                            lineNumber: 181,
                             columnNumber: 17
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                            children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                    children: "Birthday:"
-                                }, void 0, false, {
-                                    fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 160,
-                                    columnNumber: 21
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Date, {
-                                    children: "Birthday:"
-                                }, void 0, false, {
-                                    fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 161,
-                                    columnNumber: 21
-                                }, undefined),
-                                " ",
-                                user.birthday
-                            ]
-                        }, void 0, true, {
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                children: [
+                                    "Birthday",
+                                    user.Birthday,
+                                    " "
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/profile-view/profile-view.jsx",
+                                lineNumber: 185,
+                                columnNumber: 21
+                            }, undefined)
+                        }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 159,
+                            lineNumber: 184,
                             columnNumber: 17
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                             className: "movie-list",
                             children: favoriteMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                                     movie: movie,
-                                    handleToggle: handleToggle,
+                                    toggleFavorite: handleToggle,
                                     hasFavorite: true
                                 }, movie.id, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 165,
+                                    lineNumber: 189,
                                     columnNumber: 25
                                 }, undefined))
                         }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 163,
+                            lineNumber: 187,
                             columnNumber: 17
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 151,
+                    lineNumber: 176,
                     columnNumber: 13
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 150,
+                lineNumber: 175,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
@@ -47268,7 +47278,7 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                             children: "Update Details"
                         }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 179,
+                            lineNumber: 204,
                             columnNumber: 13
                         }, undefined),
                         showUpdateForm && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
@@ -47281,7 +47291,7 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                                             children: "Username:"
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 183,
+                                            lineNumber: 208,
                                             columnNumber: 25
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -47290,13 +47300,13 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                                             onChange: handleUsernameChange
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 184,
+                                            lineNumber: 209,
                                             columnNumber: 25
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 182,
+                                    lineNumber: 207,
                                     columnNumber: 21
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -47306,7 +47316,7 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                                             children: "Password"
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 188,
+                                            lineNumber: 213,
                                             columnNumber: 25
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -47315,13 +47325,13 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                                             onChange: handlePasswordChange
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 189,
+                                            lineNumber: 214,
                                             columnNumber: 25
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 187,
+                                    lineNumber: 212,
                                     columnNumber: 21
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -47331,7 +47341,7 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                                             children: "Email:"
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 193,
+                                            lineNumber: 218,
                                             columnNumber: 25
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -47340,13 +47350,13 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                                             onChange: handleEmailChange
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 194,
+                                            lineNumber: 219,
                                             columnNumber: 25
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 192,
+                                    lineNumber: 217,
                                     columnNumber: 21
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -47356,7 +47366,7 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                                             children: "Birthday:"
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 198,
+                                            lineNumber: 223,
                                             columnNumber: 25
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -47365,13 +47375,13 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                                             onChange: handleBirthdayChange
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 199,
+                                            lineNumber: 224,
                                             columnNumber: 25
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 197,
+                                    lineNumber: 222,
                                     columnNumber: 21
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -47380,7 +47390,7 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                                     children: "Update"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 202,
+                                    lineNumber: 227,
                                     columnNumber: 21
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -47389,13 +47399,13 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 203,
+                                    lineNumber: 228,
                                     columnNumber: 21
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 181,
+                            lineNumber: 206,
                             columnNumber: 17
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -47403,28 +47413,28 @@ const ProfileView = ({ user , favoriteMovies , token , toggleFavorite  })=>{
                             children: "Delete Account"
                         }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 206,
+                            lineNumber: 231,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 178,
+                    lineNumber: 203,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 177,
+                lineNumber: 202,
                 columnNumber: 5
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 149,
+        lineNumber: 174,
         columnNumber: 7
     }, undefined);
 };
-_s(ProfileView, "fhiirB7CwyBtBpQm82iTKDd7NFY=", false, function() {
+_s(ProfileView, "2Jv6P3Sf8qfSRbAIvD7GdjXIKAU=", false, function() {
     return [
         (0, _reactRouterDom.useNavigate)
     ];
@@ -47438,6 +47448,6 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","../movie-card/movie-card":"bwuIu","react-bootstrap":"3AD9A","./profile-view.scss":"eyKYH","@parcel/transformer-js/src/esmodule-helpers.js":"lFzom","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7Q8S9","react":"21dqq","react-router-dom":"9xmpe"}],"eyKYH":[function() {},{}],"i5LP7":[function() {},{}],"lJZlQ":[function() {},{}]},["3JDK9","9r7tA","d8Dch"], "d8Dch", "parcelRequireaec4")
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","../movie-card/movie-card":"bwuIu","react-bootstrap":"3AD9A","./profile-view.scss":"eyKYH","@parcel/transformer-js/src/esmodule-helpers.js":"lFzom","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7Q8S9"}],"eyKYH":[function() {},{}],"i5LP7":[function() {},{}],"lJZlQ":[function() {},{}]},["3JDK9","9r7tA","d8Dch"], "d8Dch", "parcelRequireaec4")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

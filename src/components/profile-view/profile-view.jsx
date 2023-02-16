@@ -9,7 +9,7 @@ import { Card, Form, Button } from "react-bootstrap";
 
 import "./profile-view.scss";
 
-export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => {
+export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite}) => {
 
   const [updateUser, setUpdateUser] = useState(false);
   const [username, setUsername] = useState(user.username);
@@ -18,7 +18,30 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
   const [birthday, setBirthday] = useState(user.birthday);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
 
-  
+  useEffect(() => {
+    if(!token){
+      return;
+    }
+
+    fetch(`https://myflix-gqp8.onrender.com/users`,
+    {
+        method: "GET",
+        headers:{
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }).then((response) => response.json())
+      .then((data) => {
+        if(data.user){
+          console.log(data.user);
+        }else{
+          alert("User not found.");
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
+  },[username, token]);
+
     const handleToggle = (movie) => {
         toggleFavorite(movie);
     };
@@ -63,7 +86,7 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
             Email:email,
             Birthday:birthday
           };
-          fetch(`https://myflix-gqp8.onrender.com/users/${user.username}`, {
+          fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`, {
             method: "PUT",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -87,9 +110,11 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
             });
         }
 
+        
+
         useEffect(() => {
             if(updateUser){
-               fetch(`https://myflix-gqp8.onrender.com/users/${user.username}`,{
+               fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`,{
                      method: "GET",
                      headers:{
                         Authorization: `Bearer ${token}`,
@@ -100,9 +125,9 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
                .then((data) => {
                   if(data){
                     setUsername(data.username);
-                    setPassword(data.Password);
-                    setEmail(data.Email);
-                    setBirthday(data.Birthday);
+                    setPassword(data.password);
+                    setEmail(data.email);
+                    setBirthday(data.birthday);
                     setUpdateUser(false);
                   }
                })
@@ -128,7 +153,7 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
             })
             .then((response) => response.json())
             .then((data) => {
-                if (data.ok){
+                if (data.user){
                     alert("Account deleted successfully.");
                     navigate("/signup");
 
@@ -151,22 +176,22 @@ return(
             <Card.Body>
                 <Card.Title>Profile Information</Card.Title>
                 <Card.Text>
-                    <strong>Username:</strong> {user.username}
+                    <strong>Username{user.Username}</strong> 
                 </Card.Text>
                 <Card.Text>
-                    <strong>Email:</strong> {user.email} 
+                    <strong>Email{user.Email} </strong> 
                 </Card.Text>
                 <Card.Text>
-                    <strong>Birthday:</strong>
-                    <Date>Birthday:</Date> {user.birthday} 
+                    <strong>Birthday{user.Birthday} </strong> 
                 </Card.Text>
                 <div className="movie-list">
                     {favoriteMovies.map((movie) => (
                         <MovieCard
                             key={movie.id}
                             movie={movie}
-                            handleToggle={handleToggle}
+                            toggleFavorite={handleToggle}
                             hasFavorite={true}
+                            
                         />    
 
                     ))}

@@ -21,7 +21,7 @@ return (
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text><span>Director</span>{movie.director}</Card.Text>
         <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-        <Button variant="link" onClick={ handleFavoriteClick}>{favoriteButtonLabel}</Button>
+        <Button variant="link" onClick={ handleFavoriteClick }>{favoriteButtonLabel}</Button>
         <Button variant="link">Open</Button>
         </Link>
       </Card.Body>
