@@ -12,10 +12,10 @@ import "./profile-view.scss";
 export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => {
 
   const [updateUser, setUpdateUser] = useState(false);
-  const [username, setUsername] = useState(user.username);
-  const [password, setPassword] = useState(user.password);
-  const [email, setEmail] = useState(user.email);
-  const [birthday, setBirthday] = useState(user.birthday);
+  const [username, setUsername] = useState(user.Username);
+  const [password, setPassword] = useState(user.Password);
+  const [email, setEmail] = useState(user.Email);
+  const [birthday, setBirthday] = useState(user.Birthday);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
 
   
@@ -63,7 +63,7 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
             Email:email,
             Birthday:birthday
           };
-          fetch(`https://myflix-gqp8.onrender.com/users/${user.username}`, {
+          fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`, {
             method: "PUT",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -89,7 +89,7 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
 
         useEffect(() => {
             if(updateUser){
-               fetch(`https://myflix-gqp8.onrender.com/users/${user.username}`,{
+               fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`,{
                      method: "GET",
                      headers:{
                         Authorization: `Bearer ${token}`,
@@ -119,7 +119,7 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
         const confirmDelete = window.confirm("Are you sure you sure you want to delete your account?");
         
         if(confirmDelete){
-            fetch(`https://myflix-gqp8.onrender.com/users/${user.username}`,{
+            fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`,{
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -151,14 +151,13 @@ return(
             <Card.Body>
                 <Card.Title>Profile Information</Card.Title>
                 <Card.Text>
-                    <strong>Username:</strong> {user.username}
+                    <strong>Username:</strong> {user.Username}
                 </Card.Text>
                 <Card.Text>
-                    <strong>Email:</strong> {user.email} 
+                    <strong>Email:</strong> {user.Email} 
                 </Card.Text>
                 <Card.Text>
-                    <strong>Birthday:</strong>
-                    <Date>Birthday:</Date> {user.birthday} 
+                    <strong>Birthday:</strong> {user.Birthday} 
                 </Card.Text>
                 <div className="movie-list">
                     {favoriteMovies.map((movie) => (
