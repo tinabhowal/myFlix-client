@@ -22,8 +22,8 @@ export const MainView = () => {
       Birthday:"",
       FavoriteMovies:[]
     });
-    const [token, setToken] = useState(null);
-    const storedUsername = localStorage.getItem("username");
+    let [token, setToken] = useState(null);
+    let storedUsername = localStorage.getItem("username");
     const [username, setUsername] = useState(storedUsername? storedUsername : null );  
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
@@ -95,7 +95,7 @@ export const MainView = () => {
         },
       }).then((response) => response.json())
         .then((data) => {
-          if(data.ok){
+          if(data){
             setUser({...data});
           }else{
             alert("User not found.");
@@ -168,8 +168,8 @@ export const MainView = () => {
           <NavigationBar
           username={username}
           onLoggedOut={()=>{
-            setUsername(null);
-            setToken(null);
+            storedUsername=null;
+            setToken=null;
             localStorage.clear();
           }}
           />
@@ -271,5 +271,3 @@ export const MainView = () => {
        </BrowserRouter>
     );
   };
-
-        

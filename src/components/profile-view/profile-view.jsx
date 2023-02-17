@@ -9,7 +9,7 @@ import { Card, Form, Button } from "react-bootstrap";
 
 import "./profile-view.scss";
 
-export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite}) => {
+export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => {
 
   const [updateUser, setUpdateUser] = useState(false);
   const [username, setUsername] = useState(user.username);
@@ -18,30 +18,7 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite}) => {
   const [birthday, setBirthday] = useState(user.birthday);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
 
-  useEffect(() => {
-    if(!token){
-      return;
-    }
-
-    fetch(`https://myflix-gqp8.onrender.com/users`,
-    {
-        method: "GET",
-        headers:{
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    }).then((response) => response.json())
-      .then((data) => {
-        if(data.user){
-          console.log(data.user);
-        }else{
-          alert("User not found.");
-        }
-      }).catch((error) => {
-        console.log(error);
-      });
-  },[username, token]);
-
+  
     const handleToggle = (movie) => {
         toggleFavorite(movie);
     };
@@ -86,7 +63,7 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite}) => {
             Email:email,
             Birthday:birthday
           };
-          fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`, {
+          fetch(`https://myflix-gqp8.onrender.com/users/${user.username}`, {
             method: "PUT",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -110,11 +87,9 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite}) => {
             });
         }
 
-        
-
         useEffect(() => {
             if(updateUser){
-               fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`,{
+               fetch(`https://myflix-gqp8.onrender.com/users/${user.username}`,{
                      method: "GET",
                      headers:{
                         Authorization: `Bearer ${token}`,
@@ -125,9 +100,9 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite}) => {
                .then((data) => {
                   if(data){
                     setUsername(data.username);
-                    setPassword(data.password);
-                    setEmail(data.email);
-                    setBirthday(data.birthday);
+                    setPassword(data.Password);
+                    setEmail(data.Email);
+                    setBirthday(data.Birthday);
                     setUpdateUser(false);
                   }
                })
@@ -153,7 +128,7 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite}) => {
             })
             .then((response) => response.json())
             .then((data) => {
-                if (data.user){
+                if (data.ok){
                     alert("Account deleted successfully.");
                     navigate("/signup");
 
@@ -176,13 +151,14 @@ return(
             <Card.Body>
                 <Card.Title>Profile Information</Card.Title>
                 <Card.Text>
-                    <strong>Username{user.Username}</strong> 
+                    <strong>Username:</strong> {user.username}
                 </Card.Text>
                 <Card.Text>
-                    <strong>Email{user.Email} </strong> 
+                    <strong>Email:</strong> {user.email} 
                 </Card.Text>
                 <Card.Text>
-                    <strong>Birthday{user.Birthday} </strong> 
+                    <strong>Birthday:</strong>
+                    <Date>Birthday:</Date> {user.birthday} 
                 </Card.Text>
                 <div className="movie-list">
                     {favoriteMovies.map((movie) => (
@@ -191,7 +167,6 @@ return(
                             movie={movie}
                             toggleFavorite={handleToggle}
                             hasFavorite={true}
-                            
                         />    
 
                     ))}
@@ -237,4 +212,3 @@ return(
     
 
   };
-  
