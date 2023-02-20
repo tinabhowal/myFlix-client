@@ -9,16 +9,41 @@ import { Card, Form, Button } from "react-bootstrap";
 
 import "./profile-view.scss";
 
-export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => {
+export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite, storedUser, onLoggedOut}) => {
 
   const [updateUser, setUpdateUser] = useState(false);
-  const [username, setUsername] = useState(user.Username);
-  const [password, setPassword] = useState(user.Password);
-  const [email, setEmail] = useState(user.Email);
-  const [birthday, setBirthday] = useState(user.Birthday);
+  const [username, setUsername] = useState(user.username);
+  const [password, setPassword] = useState(user.password);
+  const [email, setEmail] = useState(user.email);
+  const [birthday, setBirthday] = useState(user.birthday);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
-
+ 
   
+
+
+  useEffect(() => {
+    if(!token){
+      return;
+    }
+    
+
+    fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}`,
+    {
+        method: "GET",
+        headers:{
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }).then((response) => response.json())
+      .then((data) => {
+        if(data){
+          console.log("user-details:" ,data);
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
+  },[username, token]);
+
     const handleToggle = (movie) => {
         toggleFavorite(movie);
     };
@@ -63,7 +88,7 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
             Email:email,
             Birthday:birthday
           };
-          fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`, {
+          fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}`, {
             method: "PUT",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -71,12 +96,13 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
             },
             body: JSON.stringify(data)
           }).then((response) => response.json())
-            .then((data) => { console.log(data);
-             if (data.ok) {
+            .then((data) => { 
+            console.log(data);
+             if (data) {
               alert("Update successful");
-              setUpdateUser(true);
+              setUpdateUser(false);
               window.location.reload();
-              localStorage.setItem("user", JSON.stringify(data.user));
+              localStorage.setItem("user", JSON.stringify(data));
              }else{
               alert("Update failed. Please try again.");
              }
@@ -87,9 +113,40 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
             });
         }
 
+  //   const handleUpdate = (e) => {
+  //     e.preventDefault();
+
+  //     const data = {
+  //         Username: username,
+  //         Password: password,
+  //         Email: email,
+  //         Birthday: birthday
+  //     };
+
+  //     fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}`, {
+  //         method: "PUT",
+  //         body: JSON.stringify(data),
+  //         headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: `Bearer ${token}`,
+  //         }
+  //     }).then((res) => res.json())
+  //         .then((data) => {
+  //             localStorage.setItem("user", JSON.stringify(data));
+  //             onLoggedIn(data.user);
+  //             alert("Profile updated succesfully");
+  //             window.location.reload();
+  //         }).catch((err) => {
+  //             console.log(err);
+  //             alert("Something went wrong");
+  //         });
+  // };
+
+        
+
         useEffect(() => {
             if(updateUser){
-               fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`,{
+               fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}`,{
                      method: "GET",
                      headers:{
                         Authorization: `Bearer ${token}`,
@@ -99,10 +156,11 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
                .then((response) => response.json())
                .then((data) => {
                   if(data){
+                    console.log("updated data", data);
                     setUsername(data.username);
-                    setPassword(data.Password);
-                    setEmail(data.Email);
-                    setBirthday(data.Birthday);
+                    setPassword(data.password);
+                    setEmail(data.email);
+                    setBirthday(data.birthday);
                     setUpdateUser(false);
                   }
                })
@@ -119,29 +177,47 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite }) => 
         const confirmDelete = window.confirm("Are you sure you sure you want to delete your account?");
         
         if(confirmDelete){
-            fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`,{
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.ok){
-                    alert("Account deleted successfully.");
-                    navigate("/signup");
+            // fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}`,{
+            //     method: "DELETE",
+            //     headers: {
+            //         Authorization: `Bearer ${token}`,
+            //         'Content-Type': 'application/json'
+            //     }
+            // })
+            // .then((response) => response.json())
+            // .then((data) => {
+            //     if (data){
+            //         alert("Account deleted successfully.");
+            //         navigate("/signup");
 
-                }else{
-                    alert("Account deletion failed. Please try again.");
-                }
-            })
-            .catch((e) => {
+            //     }else{
+            //         alert("Account deletion failed. Please try again.");
+            //     }
+            // })
+            // .catch((e) => {
+            //     alert("Something went wrong. Please try again.")
+            //     console.log(e);
+            // });
+            fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => {
+            if (res.ok) {
+                alert(`${storedUser.Username} deregistered`);
+                onLoggedOut();
+                navigate("/signup");
+                window.location.reload();
+                
+            } else {
                 alert("Something went wrong. Please try again.")
-                console.log(e);
-            });
-        }
+            }
+        }).catch(err => console.log(err));
+    }
     };
+    
 
     
 return(
@@ -151,13 +227,13 @@ return(
             <Card.Body>
                 <Card.Title>Profile Information</Card.Title>
                 <Card.Text>
-                    <strong>Username:</strong> {user.Username}
+                    <strong>Username{storedUser.Username}</strong> 
                 </Card.Text>
                 <Card.Text>
-                    <strong>Email:</strong> {user.Email} 
+                    <strong>Email{storedUser.Email} </strong> 
                 </Card.Text>
                 <Card.Text>
-                    <strong>Birthday:</strong> {user.Birthday} 
+                    <strong>Birthday{storedUser.Birthday} </strong> 
                 </Card.Text>
                 <div className="movie-list">
                     {favoriteMovies.map((movie) => (
@@ -166,6 +242,7 @@ return(
                             movie={movie}
                             toggleFavorite={handleToggle}
                             hasFavorite={true}
+                            
                         />    
 
                     ))}
@@ -210,4 +287,4 @@ return(
 )
     
 
-  };
+};

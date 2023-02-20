@@ -2,6 +2,7 @@ import React from "react";
 import{ useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
 
 export const SignupView = () => {
     const [username, setUsername] = useState("");
@@ -11,6 +12,7 @@ export const SignupView = () => {
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState("");
     const [birthday, setBirthday] = useState("");
+    const navigate = useNavigate();
     
      // Verify that the username is of minimum length
   const usernamePattern = /^[a-zA-Z0-9]{5,}$/
@@ -70,7 +72,9 @@ export const SignupView = () => {
     }).then((response) => {
       if (response.ok) {
         alert("Signup successful");
-        window.location.reload();
+        navigate("/login");
+        // window.location.reload();
+       
       } else if (response.status === 422) {
         return response.json().then((data) => {
           let errorMessages = data.errors.map((error) => error.msg);

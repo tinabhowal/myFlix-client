@@ -22,17 +22,17 @@ export const MainView = () => {
       Birthday:"",
       FavoriteMovies:[]
     });
-    let [token, setToken] = useState(null);
-    let storedUsername = localStorage.getItem("username");
+    const [token, setToken] = useState(null);
+    const storedUsername = localStorage.getItem("username");
     const [username, setUsername] = useState(storedUsername? storedUsername : null );  
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
-    const [favoriteMovies, setFavoriteMovies] = useState(user.FavoriteMovies);
+    const [favoriteMovies, setFavoriteMovies] = useState([]);
     
     
     
     const addFavoriteMovie = (movie) => {
-      return fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}/movies/${movie.id}`,
+      return fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}/movies/${movie.id}`,
        {
                method: "POST",
                headers: {
@@ -49,7 +49,7 @@ export const MainView = () => {
         };
 
     const deleteFavoriteMovie = (movie) => {
-      return fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}/movies/${movie.id}`,
+      return fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}/movies/${movie.id}`,
        {
                method: "DELETE",
                headers: {
@@ -87,7 +87,7 @@ export const MainView = () => {
         return;
       }
 
-      fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`,
+      fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}`,
       {
         headers:{
           Authorization: `Bearer ${token}`,
@@ -95,7 +95,7 @@ export const MainView = () => {
         },
       }).then((response) => response.json())
         .then((data) => {
-          if(data){
+          if(data.ok){
             setUser({...data});
           }else{
             alert("User not found.");
@@ -168,8 +168,8 @@ export const MainView = () => {
           <NavigationBar
           username={username}
           onLoggedOut={()=>{
-            storedUsername=null;
-            setToken=null;
+            setUsername(null);
+            setToken(null);
             localStorage.clear();
           }}
           />
@@ -236,9 +236,12 @@ export const MainView = () => {
               {username? (
                 <ProfileView
                 user={user}
+                storedUser={storedUser}
                 favoriteMovies={favoriteMovies}
                 toggleFavorite={toggleFavorite}
                 token={token}
+                onLoggedOut={() => { setUser(null); setToken(null); localStorage.clear(); }}
+                // onLoggedIn={(user, token) => { setUser(user); setToken(token) }}
                 />
               ):(
                 <Navigate to="/login" />
