@@ -69,8 +69,10 @@ export const MainView = () => {
       const index = favoriteMovies.indexOf(movie);
       if (index > -1){
         deleteFavoriteMovie(movie);
+        
       }else{
         addFavoriteMovie(movie);
+        
       }
     };
 
@@ -261,7 +263,11 @@ export const MainView = () => {
                       ) : (
                         <Row className="justify-content-center py-5">
                           <Col md={8} className="mb-5">
-                            <MovieView movies={movies} />
+                            <MovieView 
+                             movies={movies}
+                             hasFavorite={favoriteMovies.includes(movies)}
+                             toggleFavorite={toggleFavorite}
+                              />
                           </Col>
                           
                         </Row>
