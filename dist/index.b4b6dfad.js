@@ -27194,18 +27194,20 @@ var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
     const [movies, setMovies] = (0, _react.useState)([]);
-    const [user, setUser] = (0, _react.useState)({
-        Username: "",
-        Password: "",
-        Email: "",
-        Birthday: "",
-        FavoriteMovies: []
-    });
-    const [token, setToken] = (0, _react.useState)(null);
-    const storedUsername = localStorage.getItem("username");
-    const [username, setUsername] = (0, _react.useState)(storedUsername ? storedUsername : null);
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    // const [user, setUser] = useState({
+    //   Username:"",
+    //   Password:"",
+    //   Email:"",
+    //   Birthday:"",
+    //   FavoriteMovies:[]
+    // });
     const storedToken = localStorage.getItem("token");
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
+    // const [token, setToken] = useState(null);
+    const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
+    const storedUsername = localStorage.getItem("user.Username");
+    const [username, setUsername] = (0, _react.useState)(storedUsername ? storedUsername : null);
     const [favoriteMovies, setFavoriteMovies] = (0, _react.useState)([]);
     const addFavoriteMovie = (movie)=>{
         return fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}/movies/${movie.id}`, {
@@ -27245,8 +27247,8 @@ const MainView = ()=>{
             ...hasFavoriteMovies
         ]);
     }, [
-        movies,
-        user
+        token,
+        movies
     ]);
     (0, _react.useEffect)(()=>{
         if (!token) return;
@@ -27324,6 +27326,7 @@ const MainView = ()=>{
             console.log("movie data", moviesFromApi);
         });
     }, [
+        username,
         token
     ]);
     // let similarMovies = () => {
@@ -27435,9 +27438,7 @@ const MainView = ()=>{
                                     md: 8,
                                     className: "mb-5",
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
-                                        movies: movies,
-                                        hasFavorite: favoriteMovies.includes(movies),
-                                        toggleFavorite: toggleFavorite
+                                        movies: movies
                                     }, void 0, false, void 0, void 0)
                                 }, void 0, false, void 0, void 0)
                             }, void 0, false, void 0, void 0)
@@ -27460,7 +27461,7 @@ const MainView = ()=>{
         columnNumber: 8
     }, undefined);
 };
-_s(MainView, "dwNgWnEUgIkhut96uCAiEbRZoyE=");
+_s(MainView, "Esf9lC2I+AbjC2l/9bska2DCQ4E=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");

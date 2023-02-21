@@ -15,18 +15,21 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
     const [movies, setMovies] = useState([]);
-    const [user, setUser] = useState({
-      Username:"",
-      Password:"",
-      Email:"",
-      Birthday:"",
-      FavoriteMovies:[]
-    });
-    const [token, setToken] = useState(null);
-    const storedUsername = localStorage.getItem("username");
-    const [username, setUsername] = useState(storedUsername? storedUsername : null );  
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    // const [user, setUser] = useState({
+    //   Username:"",
+    //   Password:"",
+    //   Email:"",
+    //   Birthday:"",
+    //   FavoriteMovies:[]
+    // });
     const storedToken = localStorage.getItem("token");
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const [user, setUser] = useState(storedUser ? storedUser : null);
+    // const [token, setToken] = useState(null);
+    const [token, setToken] = useState(storedToken ? storedToken : null);
+    const storedUsername = localStorage.getItem("user.Username");
+    const [username, setUsername] = useState(storedUsername? storedUsername : null );  
+    
     const [favoriteMovies, setFavoriteMovies] = useState([]);
     
     
@@ -75,9 +78,6 @@ export const MainView = () => {
         
       }
     };
-   
-    
-    
 
    
     useEffect(() => {
@@ -85,7 +85,7 @@ export const MainView = () => {
         favoriteMovies.includes(movie.id)
       );
       setFavoriteMovies([...hasFavoriteMovies]);
-    }, [movies, user]); 
+    }, [token,movies]); 
 
 
     useEffect(() => {
@@ -110,7 +110,7 @@ export const MainView = () => {
         }).catch((error) => {
           console.log(error);
         });
-    },[username, token]);
+    },[ username,token]);
 
     useEffect(() => {
       if (!token){
@@ -154,7 +154,7 @@ export const MainView = () => {
             setMovies(moviesFromApi);
             console.log("movie data",moviesFromApi);
           });
-      }, [token]);
+      }, [username,token]);
 
     
 
@@ -270,9 +270,10 @@ export const MainView = () => {
                           <Col md={8} className="mb-5">
                             <MovieView 
                              movies={movies}
-                             hasFavorite={favoriteMovies.includes(movies)}
+                            //  hasFavorite={favoriteMovies.includes(movies)}
                              
-                             toggleFavorite={toggleFavorite}
+                            //  toggleFavorite={toggleFavorite}
+                            
                             
                               />
                           </Col>
