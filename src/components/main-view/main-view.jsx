@@ -266,7 +266,9 @@ export const MainView = () => {
                             <MovieView 
                              movies={movies}
                              hasFavorite={favoriteMovies.includes(movies)}
+                            
                              toggleFavorite={toggleFavorite}
+                            
                               />
                           </Col>
                           

@@ -113,34 +113,7 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite, store
             });
         }
 
-  //   const handleUpdate = (e) => {
-  //     e.preventDefault();
-
-  //     const data = {
-  //         Username: username,
-  //         Password: password,
-  //         Email: email,
-  //         Birthday: birthday
-  //     };
-
-  //     fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}`, {
-  //         method: "PUT",
-  //         body: JSON.stringify(data),
-  //         headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${token}`,
-  //         }
-  //     }).then((res) => res.json())
-  //         .then((data) => {
-  //             localStorage.setItem("user", JSON.stringify(data));
-  //             onLoggedIn(data.user);
-  //             alert("Profile updated succesfully");
-  //             window.location.reload();
-  //         }).catch((err) => {
-  //             console.log(err);
-  //             alert("Something went wrong");
-  //         });
-  // };
+  
 
         
 
@@ -177,27 +150,7 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite, store
         const confirmDelete = window.confirm("Are you sure you sure you want to delete your account?");
         
         if(confirmDelete){
-            // fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}`,{
-            //     method: "DELETE",
-            //     headers: {
-            //         Authorization: `Bearer ${token}`,
-            //         'Content-Type': 'application/json'
-            //     }
-            // })
-            // .then((response) => response.json())
-            // .then((data) => {
-            //     if (data){
-            //         alert("Account deleted successfully.");
-            //         navigate("/signup");
-
-            //     }else{
-            //         alert("Account deletion failed. Please try again.");
-            //     }
-            // })
-            // .catch((e) => {
-            //     alert("Something went wrong. Please try again.")
-            //     console.log(e);
-            // });
+            
             fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}`, {
             method: "DELETE",
             headers: {

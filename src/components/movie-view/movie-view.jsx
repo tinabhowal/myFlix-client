@@ -14,6 +14,8 @@ export const MovieView = ({ movies,  hasFavorite, toggleFavorite }) => {
     toggleFavorite(movie);
   
   }
+
+  
   
    
   const favoriteButtonLabel = hasFavorite? "Remove from favorite" : "Add to favorite";
