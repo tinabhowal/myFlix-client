@@ -7,6 +7,9 @@ import "./movie-view.scss";
 
 export const MovieView = ({ movies,  hasFavorite, toggleFavorite }) => {
 
+  const { movieId } = useParams();
+
+  const movie = movies.find((m) => m.id === movieId);
   
   
   const handleFavoriteClick = (e) => {
@@ -16,12 +19,9 @@ export const MovieView = ({ movies,  hasFavorite, toggleFavorite }) => {
   }
 
   
-  
-   
-  const favoriteButtonLabel = hasFavorite? "Remove from favorite" : "Add to favorite";
-  const { movieId } = useParams();
 
-  const movie = movies.find((m) => m.id === movieId);
+  const favoriteButtonLabel = hasFavorite? "Remove from favorite" : "Add to favorite";
+  
 
   
 

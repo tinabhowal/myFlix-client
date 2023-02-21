@@ -10,7 +10,7 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Col from 'react-bootstrap/Col';
-// import Button from "react-bootstrap/Button";
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
@@ -75,7 +75,11 @@ export const MainView = () => {
         
       }
     };
+   
+    
+    
 
+   
     useEffect(() => {
       const hasFavoriteMovies = movies.filter((movie) =>
         favoriteMovies.includes(movie.id)
@@ -88,7 +92,7 @@ export const MainView = () => {
       if(!token){
         return;
       }
-
+      
       fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}`,
       {
         headers:{
@@ -97,7 +101,8 @@ export const MainView = () => {
         },
       }).then((response) => response.json())
         .then((data) => {
-          if(data.ok){
+          console.log("data", data);
+          if(data){
             setUser({...data});
           }else{
             alert("User not found.");
@@ -266,7 +271,7 @@ export const MainView = () => {
                             <MovieView 
                              movies={movies}
                              hasFavorite={favoriteMovies.includes(movies)}
-                            
+                             
                              toggleFavorite={toggleFavorite}
                             
                               />

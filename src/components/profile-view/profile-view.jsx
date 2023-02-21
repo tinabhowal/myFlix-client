@@ -1,15 +1,18 @@
 import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserInfo } from "./user-info";
+import { FavoriteMovies } from "./favorite-movies";
 
 
 
 
-import { MovieCard } from "../movie-card/movie-card";
+
+// import { MovieCard } from "../movie-card/movie-card";
 import { Card, Form, Button } from "react-bootstrap";
 
 import "./profile-view.scss";
 
-export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite, storedUser, onLoggedOut}) => {
+export const ProfileView = ({ user, token, favoriteMovies, toggleFavorite, storedUser, onLoggedOut}) => {
 
   const [updateUser, setUpdateUser] = useState(false);
   const [username, setUsername] = useState(user.username);
@@ -44,9 +47,9 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite, store
       });
   },[username, token]);
 
-    const handleToggle = (movie) => {
-        toggleFavorite(movie);
-    };
+    // const handleToggle = (movie) => {
+    //     toggleFavorite(movie);
+    // };
 
     const handleUpdateClick = () => {
         setShowUpdateForm((prevShowUpdateForm) => !prevShowUpdateForm);
@@ -170,6 +173,12 @@ export const ProfileView = ({ user, favoriteMovies, token, toggleFavorite, store
         }).catch(err => console.log(err));
     }
     };
+
+    const formattedBirthday = new Date(storedUser.Birthday).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
     
 
     
@@ -180,26 +189,18 @@ return(
             <Card.Body>
                 <Card.Title>Profile Information</Card.Title>
                 <Card.Text>
-                    <strong>Username{storedUser.Username}</strong> 
+                   
+                    <UserInfo 
+                    name= <strong>{storedUser.Username} </strong>
+                    email= <strong>{storedUser.Email}</strong>
+                    birthday= <strong>{formattedBirthday}</strong>
+                    />
                 </Card.Text>
-                <Card.Text>
-                    <strong>Email{storedUser.Email} </strong> 
-                </Card.Text>
-                <Card.Text>
-                    <strong>Birthday{storedUser.Birthday} </strong> 
-                </Card.Text>
-                <div className="movie-list">
-                    {favoriteMovies.map((movie) => (
-                        <MovieCard
-                            key={movie.id}
-                            movie={movie}
-                            toggleFavorite={handleToggle}
-                            hasFavorite={true}
-                            
-                        />    
-
-                    ))}
-                </div>
+                
+                <FavoriteMovies 
+                favoriteMovies={favoriteMovies}
+                toggleFavorite={toggleFavorite}
+                />
             </Card.Body>
         </Card>
 
@@ -210,27 +211,28 @@ return(
                 <Form onSubmit={handleUpdate}>
                     <Form.Group controlId="formUsername">
                         <Form.Label>Username:</Form.Label>
-                        <Form.Control type="text" value={username} onChange={handleUsernameChange} />
+                        <Form.Control type="text" value={username} onChange={handleUsernameChange} required />
                     </Form.Group>
 
                     <Form.Group controlId="formPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" value={password} onChange={handlePasswordChange} />
+                        <Form.Control type="password" value={password} onChange={handlePasswordChange}  required />
                     </Form.Group>
 
                     <Form.Group controlId="FormEmail">
                         <Form.Label>Email:</Form.Label>
-                        <Form.Control type="email" value={email} onChange={handleEmailChange} />
+                        <Form.Control type="email" value={email} onChange={handleEmailChange}  required />
                     </Form.Group>
 
                     <Form.Group controlId="formBirthday">
                         <Form.Label>Birthday:</Form.Label>
-                        <Form.Control type="date" value={birthday} onChange={handleBirthdayChange} />
+                        <Form.Control type="date" value={birthday} onChange={handleBirthdayChange}  required />
                     </Form.Group>
 
                     <Button variant="primary" type="submit">Update</Button>
                     <Button variant="secondary" onClick={handleCancelForm}>Cancel</Button>
                 </Form>
+                
         )}
           <Button onClick={handleDeleteUser}>Delete Account</Button>
         </Card.Body>
