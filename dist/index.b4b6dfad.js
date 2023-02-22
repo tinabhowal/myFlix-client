@@ -27173,6 +27173,252 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$f7a6.prelude(module);
 
 try {
+// import React from "react";
+// import { useState, useEffect } from "react";
+// import { MovieCard } from "../movie-card/movie-card";
+// import { MovieView} from "../movie-view/movie-view";
+// import { LoginView } from "../login-view/login-view";
+// import { SignupView } from "../signup-view/signup-view";
+// import { NavigationBar } from "../navigation-bar/navigation-bar";
+// import { ProfileView } from "../profile-view/profile-view";
+// import Row from "react-bootstrap/Row";
+// import Col from 'react-bootstrap/Col';
+// import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+// export const MainView = () => {
+//     const [movies, setMovies] = useState([]);
+//     // const [user, setUser] = useState({
+//     //   Username:"",
+//     //   Password:"",
+//     //   Email:"",
+//     //   Birthday:"",
+//     //   FavoriteMovies:[]
+//     // });
+//     const storedToken = localStorage.getItem("token");
+//     const storedUser = JSON.parse(localStorage.getItem("user"));
+//     const [user, setUser] = useState(storedUser ? storedUser : null);
+//     // const [token, setToken] = useState(null);
+//     const [token, setToken] = useState(storedToken ? storedToken : null);
+//     const storedUsername = localStorage.getItem("user.Username");
+//     const [username, setUsername] = useState(storedUsername? storedUsername : null );  
+//     const [favoriteMovies, setFavoriteMovies] = useState([]);
+//     const addFavoriteMovie = (movie) => {
+//       return fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}/movies/${movie.id}`,
+//        {
+//                method: "POST",
+//                headers: {
+//                 Authorization: `Bearer ${token}`,
+//                 "Content-Type": "application/json"
+//               },
+//         })
+//           .then((response) => response.json())
+//           .then((data) => {
+//             console.log(data);
+//             setFavoriteMovies([...favoriteMovies, movie]);
+//           })
+//           .catch(error => console.log(error));
+//         };
+//     const deleteFavoriteMovie = (movie) => {
+//       return fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}/movies/${movie.id}`,
+//        {
+//                method: "DELETE",
+//                headers: {
+//                 Authorization: `Bearer ${token}`,
+//                 "Content-Type": "application/json"
+//               },
+//         })
+//           .then((response) => response.json())
+//           .then((data) => {
+//             console.log(data);
+//             setFavoriteMovies(favoriteMovies.filter((favoriteMovie) => favoriteMovie.id !== movie.id));
+//           })
+//           .catch(error => console.log(error));
+//         };
+//     const toggleFavorite = (movie) => {
+//       const index = favoriteMovies.indexOf(movie);
+//       if (index > -1){
+//         deleteFavoriteMovie(movie);
+//       }else{
+//         addFavoriteMovie(movie);
+//       }
+//     };
+//     useEffect(() => {
+//       const hasFavoriteMovies = movies.filter((movie) =>
+//         favoriteMovies.includes(movie.id)
+//       );
+//       setFavoriteMovies([...hasFavoriteMovies]);
+//     }, [token,movies]); 
+//     useEffect(() => {
+//       if(!token){
+//         return;
+//       }
+//       fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}`,
+//       {
+//         headers:{
+//           Authorization: `Bearer ${token}`,
+//           "Content-Type": "application/json",
+//         },
+//       }).then((response) => response.json())
+//         .then((data) => {
+//           console.log("data", data);
+//           if(data){
+//             setUser({...data});
+//           }else{
+//             alert("User not found.");
+//           }
+//         }).catch((error) => {
+//           console.log(error);
+//         });
+//     },[ username,token]);
+//     useEffect(() => {
+//       if (!token){
+//             return;
+//          }
+//         fetch("https://myflix-gqp8.onrender.com/movies",{
+//                method: "GET",
+//                headers: {Authorization: `Bearer ${token}`},
+//         })
+//           .then((response) => response.json())
+//           .then((movies) => {
+//             console.log("movies from api:", movies);
+//             const moviesFromApi = movies.map((movie) => {
+//                 const oldGenre = Object.entries(movie.Genre).map(([key, value]) => ([
+//                   <div key={movie._id}>{key} : {value}</div>
+//                 ]));
+//             const genre = [...oldGenre];
+//             const oldDirector = Object.entries(movie.Director).map(([key,  value]) => ([
+//                 <div key={movie._id}>{key} : {value}</div>
+//                 ]));
+//             const director = [...oldDirector];
+//                 return {
+//                   id: movie._id,
+//                   image: movie.ImagePath,
+//                   title: movie.Title,
+//                   description: movie.Description,
+//                   genre,
+//                   actors: movie.Actors,
+//                   director
+//                 };
+//               });
+//             setMovies(moviesFromApi);
+//             console.log("movie data",moviesFromApi);
+//           });
+//       }, [username,token]);
+//     // let similarMovies = () => {
+//     //   return movies.filter((movie) => {
+//     //     if (movie.genre.name === selectedMovie.genre.name){
+//     //     return movie.genre.name === selectedMovie.genre.name && movie.title !== selectedMovie.title;
+//     //   }
+//     //   });
+//     // };
+//     return (
+//        <BrowserRouter>
+//         {username? (
+//           <NavigationBar
+//           username={username}
+//           onLoggedOut={()=>{
+//             setUsername(null);
+//             setToken(null);
+//             localStorage.clear();
+//           }}
+//           />
+//         ) : (
+//           ""
+//         )}
+//         <Routes>
+//           <Route
+//             path="/signup"
+//             element={
+//               <React.Fragment>
+//                 {username? <Navigate to="/" /> : <SignupView />}
+//               </React.Fragment>
+//             }
+//           />
+//           <Route
+//             path="/login"
+//             element={
+//               <React.Fragment>
+//                 {username? (
+//                   <Navigate to="/" />
+//                 ):(
+//                   <LoginView
+//                    onLoggedIn={(username,token) =>{
+//                     setUsername(username);
+//                     setToken(token);
+//                    }}
+//                   />
+//                 )}
+//               </React.Fragment>
+//             }
+//           />
+//         <Route
+//            path="/"
+//            element={
+//             <React.Fragment>
+//               {!username? (
+//                 <Navigate to="/login" />
+//               ) : movies.lenth === 0?(
+//                 <Col>Hold on! We are fetching the best movies for you.</Col>
+//               ):(
+//                 <Row className="justify-content-center py-5">
+//                   {movies.map((movie) => (
+//                     <MovieCard
+//                      movie={movie}
+//                      hasFavorite={favoriteMovies.includes(movie)}
+//                      toggleFavorite={toggleFavorite}
+//                      key={movie.id}
+//                   />
+//                ))}
+//             </Row>
+//             )}
+//             </React.Fragment>
+//            }
+//          />
+//         <Route
+//            path="/profile"
+//            element={
+//             <React.Fragment>
+//               {username? (
+//                 <ProfileView
+//                 user={user}
+//                 storedUser={storedUser}
+//                 favoriteMovies={favoriteMovies}
+//                 toggleFavorite={toggleFavorite}
+//                 token={token}
+//                 onLoggedOut={() => { setUser(null); setToken(null); localStorage.clear(); }}
+//                 // onLoggedIn={(user, token) => { setUser(user); setToken(token) }}
+//                 />
+//               ):(
+//                 <Navigate to="/login" />
+//               )}
+//             </React.Fragment>
+//            }
+//           />
+//         <Route
+//                   path="/movies/:movieId"
+//                   element={
+//                     <React.Fragment>
+//                       {!username ? (
+//                         <Navigate to="/login" />
+//                       ) : movies.length === 0 ? (
+//                         <Col>Hold on! We are fetching the best movies for you.</Col>
+//                       ) : (
+//                         <Row className="justify-content-center py-5">
+//                           <Col md={8} className="mb-5">
+//                             <MovieView 
+//                              movies={movies}
+//                              hasFavorite={favoriteMovies.includes(movies)}
+//                              toggleFavorite={toggleFavorite}
+//                               />
+//                           </Col>
+//                         </Row>
+//                       )}
+//                     </React.Fragment>
+//                   }
+//                 />
+//         </Routes>
+//        </BrowserRouter>
+//     );
+//   };
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MainView", ()=>MainView);
@@ -27193,21 +27439,11 @@ var _reactRouterDom = require("react-router-dom");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movies, setMovies] = (0, _react.useState)([]);
-    // const [user, setUser] = useState({
-    //   Username:"",
-    //   Password:"",
-    //   Email:"",
-    //   Birthday:"",
-    //   FavoriteMovies:[]
-    // });
-    const storedToken = localStorage.getItem("token");
     const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
     const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
-    // const [token, setToken] = useState(null);
     const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
-    const storedUsername = localStorage.getItem("user.Username");
-    const [username, setUsername] = (0, _react.useState)(storedUsername ? storedUsername : null);
+    const [movies, setMovies] = (0, _react.useState)([]);
     const [favoriteMovies, setFavoriteMovies] = (0, _react.useState)([]);
     const addFavoriteMovie = (movie)=>{
         return fetch(`https://myflix-gqp8.onrender.com/users/${storedUser.Username}/movies/${movie.id}`, {
@@ -27232,7 +27468,6 @@ const MainView = ()=>{
                 "Content-Type": "application/json"
             }
         }).then((response)=>response.json()).then((data)=>{
-            console.log(data);
             setFavoriteMovies(favoriteMovies.filter((favoriteMovie)=>favoriteMovie.id !== movie.id));
         }).catch((error)=>console.log(error));
     };
@@ -27247,8 +27482,8 @@ const MainView = ()=>{
             ...hasFavoriteMovies
         ]);
     }, [
-        token,
-        movies
+        movies,
+        user
     ]);
     (0, _react.useEffect)(()=>{
         if (!token) return;
@@ -27258,7 +27493,6 @@ const MainView = ()=>{
                 "Content-Type": "application/json"
             }
         }).then((response)=>response.json()).then((data)=>{
-            console.log("data", data);
             if (data) setUser({
                 ...data
             });
@@ -27267,7 +27501,7 @@ const MainView = ()=>{
             console.log(error);
         });
     }, [
-        username,
+        user,
         token
     ]);
     (0, _react.useEffect)(()=>{
@@ -27289,8 +27523,8 @@ const MainView = ()=>{
                             ]
                         }, movie._id, true, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 130,
-                            columnNumber: 19
+                            lineNumber: 409,
+                            columnNumber: 13
                         }, undefined)
                     ]);
                 const genre = [
@@ -27305,8 +27539,8 @@ const MainView = ()=>{
                             ]
                         }, movie._id, true, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 137,
-                            columnNumber: 17
+                            lineNumber: 418,
+                            columnNumber: 15
                         }, undefined)
                     ]);
                 const director = [
@@ -27326,7 +27560,6 @@ const MainView = ()=>{
             console.log("movie data", moviesFromApi);
         });
     }, [
-        username,
         token
     ]);
     // let similarMovies = () => {
@@ -27338,53 +27571,53 @@ const MainView = ()=>{
     // };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
         children: [
-            username ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navigationBar.NavigationBar), {
-                username: username,
+            user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navigationBar.NavigationBar), {
+                user: user,
                 onLoggedOut: ()=>{
-                    setUsername(null);
+                    setUser(null);
                     setToken(null);
                     localStorage.clear();
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 175,
-                columnNumber: 11
+                lineNumber: 453,
+                columnNumber: 9
             }, undefined) : "",
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Routes), {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                         path: "/signup",
                         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).Fragment, {
-                            children: username ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                            children: user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
                                 to: "/"
                             }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, void 0, void 0)
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 187,
-                        columnNumber: 11
+                        lineNumber: 465,
+                        columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                         path: "/login",
                         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).Fragment, {
-                            children: username ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                            children: user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
                                 to: "/"
                             }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-                                onLoggedIn: (username, token)=>{
-                                    setUsername(username);
+                                onLoggedIn: (user, token)=>{
+                                    setUser(user);
                                     setToken(token);
                                 }
                             }, void 0, false, void 0, void 0)
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 196,
-                        columnNumber: 11
+                        lineNumber: 474,
+                        columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                         path: "/",
                         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).Fragment, {
-                            children: !username ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                            children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
                                 to: "/login"
                             }, void 0, false, void 0, void 0) : movies.lenth === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                 children: "Hold on! We are fetching the best movies for you."
@@ -27399,13 +27632,13 @@ const MainView = ()=>{
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 214,
+                        lineNumber: 492,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                         path: "/profile",
                         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).Fragment, {
-                            children: username ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
+                            children: user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
                                 user: user,
                                 storedUser: storedUser,
                                 favoriteMovies: favoriteMovies,
@@ -27422,13 +27655,13 @@ const MainView = ()=>{
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 239,
+                        lineNumber: 516,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                         path: "/movies/:movieId",
                         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).Fragment, {
-                            children: !username ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                            children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
                                 to: "/login"
                             }, void 0, false, void 0, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                 children: "Hold on! We are fetching the best movies for you."
@@ -27438,30 +27671,32 @@ const MainView = ()=>{
                                     md: 8,
                                     className: "mb-5",
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
-                                        movies: movies
+                                        movies: movies,
+                                        hasFavorite: favoriteMovies.includes(movies),
+                                        toggleFavorite: toggleFavorite
                                     }, void 0, false, void 0, void 0)
                                 }, void 0, false, void 0, void 0)
                             }, void 0, false, void 0, void 0)
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 260,
+                        lineNumber: 541,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 186,
-                columnNumber: 9
+                lineNumber: 464,
+                columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 173,
-        columnNumber: 8
+        lineNumber: 451,
+        columnNumber: 5
     }, undefined);
 };
-_s(MainView, "Esf9lC2I+AbjC2l/9bska2DCQ4E=");
+_s(MainView, "xpjikDa0ZaelreAeyldx7txDQpU=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -46957,13 +47192,48 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$abf5.prelude(module);
 
 try {
+// import { Navbar, Container, Nav } from "react-bootstrap";
+// import { Link } from "react-router-dom";
+// export const NavigationBar = ({username, onLoggedOut}) => {
+//     return (
+//         <Navbar bg="light" expand="lg">
+//             <Container>
+//                 <Navbar.Brand as={Link} to="/">
+//                     Movies App
+//                 </Navbar.Brand>
+//                 <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
+//                 <Navbar.Collapse id="basic-navbar-nav">
+//                     <Nav className="me-auto">
+//                     {!username && (
+//               <>
+//                 <Nav.Link as={Link} to="/login">
+//                   Login
+//                 </Nav.Link>
+//                 <Nav.Link as={Link} to="/signup">
+//                   Signup
+//                 </Nav.Link>
+//               </>
+//             )}
+//             {username && (
+//                 <>
+//                     <Nav.Link as={Link} to="/">Home</Nav.Link>
+//                     <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+//                     <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
+//                 </>
+//                 )}
+//                  </Nav>
+//                 </Navbar.Collapse>
+//             </Container>
+//         </Navbar>
+//     )
+// }
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "NavigationBar", ()=>NavigationBar);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
-const NavigationBar = ({ username , onLoggedOut  })=>{
+const NavigationBar = ({ user , onLoggedOut  })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar), {
         bg: "light",
         expand: "lg",
@@ -46975,22 +47245,22 @@ const NavigationBar = ({ username , onLoggedOut  })=>{
                     children: "Movies App"
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 8,
-                    columnNumber: 17
+                    lineNumber: 45,
+                    columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
                     "aria-controls": "basic-navbar-nav"
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 11,
-                    columnNumber: 17
+                    lineNumber: 48,
+                    columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
                     id: "basic-navbar-nav",
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
                         className: "me-auto",
                         children: [
-                            !username && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                            !user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                 children: [
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                         as: (0, _reactRouterDom.Link),
@@ -46998,7 +47268,7 @@ const NavigationBar = ({ username , onLoggedOut  })=>{
                                         children: "Login"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 16,
+                                        lineNumber: 53,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -47007,12 +47277,12 @@ const NavigationBar = ({ username , onLoggedOut  })=>{
                                         children: "Signup"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 19,
+                                        lineNumber: 56,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
                             }, void 0, true),
-                            username && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                            user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                 children: [
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                         as: (0, _reactRouterDom.Link),
@@ -47020,8 +47290,8 @@ const NavigationBar = ({ username , onLoggedOut  })=>{
                                         children: "Home"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 26,
-                                        columnNumber: 21
+                                        lineNumber: 63,
+                                        columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                         as: (0, _reactRouterDom.Link),
@@ -47029,40 +47299,40 @@ const NavigationBar = ({ username , onLoggedOut  })=>{
                                         children: "Profile"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 27,
-                                        columnNumber: 21
+                                        lineNumber: 66,
+                                        columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                         onClick: onLoggedOut,
                                         children: "Logout"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 28,
-                                        columnNumber: 21
+                                        lineNumber: 69,
+                                        columnNumber: 17
                                     }, undefined)
                                 ]
                             }, void 0, true)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 13,
-                        columnNumber: 21
+                        lineNumber: 50,
+                        columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 12,
-                    columnNumber: 17
+                    lineNumber: 49,
+                    columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-            lineNumber: 7,
-            columnNumber: 13
+            lineNumber: 44,
+            columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-        lineNumber: 6,
-        columnNumber: 9
+        lineNumber: 43,
+        columnNumber: 5
     }, undefined);
 };
 _c = NavigationBar;
