@@ -360,12 +360,12 @@ export const MainView = () => {
     }
   };
 
-  useEffect(() => {
-    const hasFavoriteMovies = movies.filter((movie) =>
-      favoriteMovies.includes(movie.id)
-    );
-    setFavoriteMovies([...hasFavoriteMovies]);
-  }, [movies, user]);
+  // useEffect(() => {
+  //   const hasFavoriteMovies = movies.filter((movie) =>
+  //     favoriteMovies.includes(movie.id)
+  //   );
+  //   setFavoriteMovies([...hasFavoriteMovies]);
+  // }, [movies, user]);
 
   useEffect(() => {
     if (!token) {
