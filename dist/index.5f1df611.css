@@ -6,7 +6,20 @@
   padding: 4px 12px;
 }
 
+.shadow-effect {
+  transition: all .3s ease-in-out;
+  box-shadow: 0 0 10px #0000001a;
+}
 
+.shadow-effect:hover {
+  box-shadow: 0 0 10px #00000080;
+}
+
+.btn-hover-primary:hover {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
 
 :root {
   --bs-blue: #0d6efd;

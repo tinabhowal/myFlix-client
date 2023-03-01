@@ -1,0 +1,19 @@
+.shadow-effect {
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);;
+  }
+  
+  .shadow-effect:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  
+ 
+  
+
+  .btn-hover-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+  }
+  

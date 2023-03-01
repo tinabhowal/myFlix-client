@@ -1,7 +1,8 @@
 import React from 'react'
 
 export const UserInfo = ({email,name, birthday}) => {
-   
+  
+
     return (
     <>
     <p>User: {name}</p>
