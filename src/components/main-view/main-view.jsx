@@ -1,7 +1,3 @@
-
-
-
-
 import React from "react";
 import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
@@ -12,10 +8,7 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {Carousel} from "react-bootstrap";
-
-
-
+import { Carousel } from "react-bootstrap";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -26,8 +19,6 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
-  
-
 
   const addFavoriteMovie = (movie) => {
     return fetch(
@@ -42,9 +33,9 @@ export const MainView = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log("data", data);
+
         setFavoriteMovies([...favoriteMovies, movie]);
-        
       })
       .catch((error) => console.log(error));
   };
@@ -64,10 +55,9 @@ export const MainView = () => {
       .then((data) => {
         setFavoriteMovies(
           favoriteMovies.filter(
-            (favoriteMovie) => favoriteMovie.id !== movie.id
+            (favoriteMovie) => favoriteMovie.id !== movie._id
           )
         );
-        
       })
       .catch((error) => console.log(error));
   };
@@ -111,8 +101,6 @@ export const MainView = () => {
         console.log(error);
       });
   }, [user, token]);
-  
-  
 
   useEffect(() => {
     if (!token) {
@@ -128,8 +116,6 @@ export const MainView = () => {
         console.log("movies from api:", movies);
 
         const moviesFromApi = movies.map((movie) => {
-          
-
           return {
             id: movie._id,
             image: movie.ImagePath,
@@ -140,7 +126,7 @@ export const MainView = () => {
 
             actors: movie.Actors,
             // director,
-            director: movie.Director
+            director: movie.Director,
           };
         });
 
@@ -199,42 +185,36 @@ export const MainView = () => {
           }
         />
 
-        
-
-<Route
-  path="/"
-  element={
-    <React.Fragment>
-      {!user ? (
-        <Navigate to="/login" />
-      ) : movies.length === 0 ? (
-        <Col>Hold on! We are fetching the best movies for you.</Col>
-      ) : (
-        <Row xs={1} sm={2} md={4} className="justify-content-center py-5">
-      
-          {movies.map((movie) => (
-
-            <Col key={movie.id}>
-              <MovieCard
-                movie={movie}
-                hasFavorite={favoriteMovies.includes(movie)}
-                toggleFavorite={toggleFavorite}
-              />
-            </Col>
-          ))}
-        
-        </Row>
-      )}
-    </React.Fragment>
-  }
-/>
-
-
-
-
-
-      
-
+        <Route
+          path="/"
+          element={
+            <React.Fragment>
+              {!user ? (
+                <Navigate to="/login" />
+              ) : movies.length === 0 ? (
+                <Col>Hold on! We are fetching the best movies for you.</Col>
+              ) : (
+                <Row
+                  xs={1}
+                  sm={2}
+                  md={4}
+                  className="justify-content-center py-5"
+                >
+                  {movies.map((movie) => (
+                    <Col key={movie.id}>
+                      <MovieCard
+                        user={user}
+                        movie={movie}
+                        hasFavorite={favoriteMovies.includes(movie)}
+                        toggleFavorite={toggleFavorite}
+                      />
+                    </Col>
+                  ))}
+                </Row>
+              )}
+            </React.Fragment>
+          }
+        />
 
         <Route
           path="/profile"
