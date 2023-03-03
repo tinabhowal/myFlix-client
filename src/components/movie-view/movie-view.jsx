@@ -4,6 +4,8 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import "./movie-view.scss";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 export const MovieView = ({ movies,  hasFavorite, toggleFavorite }) => {
 
@@ -67,6 +69,13 @@ export const MovieView = ({ movies,  hasFavorite, toggleFavorite }) => {
       <button className="back-button">Back</button>
       {/* <Button variant="link" onClick={ handleFavoriteClick }>{favoriteButtonLabel}</Button> */}
       </Link>
+      <Button variant="link"  onClick={handleFavoriteClick}>
+        <FontAwesomeIcon
+        icon={faHeart}
+        style={{ fontSize: '2em', padding: '0.1em' }}
+        className={hasFavorite? "text-danger" : ""}
+        />
+      </Button>
     </div>
   );
 };

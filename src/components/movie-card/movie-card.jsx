@@ -60,31 +60,23 @@ return (
 
 
 
-// MovieCard.propTypes = {
-//    movie: PropTypes.shape({
-//     title: PropTypes.string.isRequired,
-//     description: PropTypes.string.isRequired,
-//     image: PropTypes.string.isRequired,
-//     genre:  PropTypes.array,
-//     director:  PropTypes.array
-//    }).isRequired
-// };
 
-// MovieCard.propTypes = {
-//   movie: PropTypes.shape({
-//     title: PropTypes.string.isRequired,
-//     description: PropTypes.string.isRequired,
-//     image: PropTypes.string.isRequired,
 
-//     genre: PropTypes.shape({
-//       Name: PropTypes.string.isRequired,
-//       Description: PropTypes.string.isRequired,
-//     }).isRequired,
-//     director: PropTypes.shape({
-//       Name: PropTypes.string.isRequired,
-//       Bio: PropTypes.string.isRequired,
-//       Birth: PropTypes.string,
-//       Death: PropTypes.string,
-//     }).isRequired,
-//   }).isRequired,
-// };
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+
+    genre: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired,
+    }).isRequired,
+    director: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Bio: PropTypes.string.isRequired,
+      Birth: PropTypes.string,
+      Death: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
+};
