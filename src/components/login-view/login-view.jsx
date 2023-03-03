@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -67,6 +68,8 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
+    <>
+    <NavigationBar/>
     <Form onSubmit={handleSubmit}>
       <Form controlId="formUsername">
         <Form.Label>Username:</Form.Label>
@@ -95,5 +98,6 @@ export const LoginView = ({ onLoggedIn }) => {
         Submit
       </Button>
     </Form>
+    </>
   );
 };

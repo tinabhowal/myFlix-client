@@ -3,7 +3,7 @@ import{ useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-
+import { NavigationBar } from "../navigation-bar/navigation-bar";
 export const SignupView = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -90,6 +90,11 @@ export const SignupView = () => {
   };
 
     return(
+      <>
+      <NavigationBar
+        
+        
+        />
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formUsername">
           <Form.Label>Username:</Form.Label>
@@ -143,5 +148,6 @@ export const SignupView = () => {
 
         <Button variant="primary" type="submit">Submit</Button>
       </Form>
+      </>
     )
   };

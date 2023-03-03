@@ -33,7 +33,7 @@ export const MainView = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
+        console.log("data added", data);
 
         setFavoriteMovies([...favoriteMovies, movie]);
       })
@@ -53,6 +53,7 @@ export const MainView = () => {
     )
       .then((response) => response.json())
       .then((data) => {
+        console.log("data removed", data);
         setFavoriteMovies(
           favoriteMovies.filter(
             (favoriteMovie) => favoriteMovie.id !== movie._id
