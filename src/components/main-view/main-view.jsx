@@ -12,7 +12,7 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {Carousel} from "react-bootstrap";
+
 
 
 
@@ -44,6 +44,7 @@ export const MainView = () => {
       .then((data) => {
         console.log(data);
         setFavoriteMovies([...favoriteMovies, movie]);
+        console.log("favorites from main view", favoriteMovies);
         
       })
       .catch((error) => console.log(error));
