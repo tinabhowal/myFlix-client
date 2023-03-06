@@ -4,12 +4,17 @@
 
 import React from "react";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
+import { MoviesList } from "../movies-list/movies-list";
+import { setUser } from "../../redux/reducers/user";
+import { setToken } from "../../redux/reducers/token";
+import { setMovies } from "../../redux/reducers/movies";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
@@ -20,14 +25,17 @@ import Col from "react-bootstrap/Col";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const storedToken = localStorage.getItem("token");
-  const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
-  const [movies, setMovies] = useState([]);
+  // const storedUser = JSON.parse(localStorage.getItem("user"));
+  // const storedToken = localStorage.getItem("token");
+  // const [user, setUser] = useState(storedUser ? storedUser : null);
+  // const [token, setToken] = useState(storedToken ? storedToken : null);
+  //const [movies, setMovies] = useState([]);
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.token.token || localStorage.getItem('token'));
+  const movies = useSelector((state) => state.movies.list);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   
-
+  const dispatch = useDispatch();
 
   const addFavoriteMovie = (movie) => {
     return fetch(
@@ -89,29 +97,30 @@ export const MainView = () => {
   //   setFavoriteMovies([...hasFavoriteMovies]);
   // }, [movies, user]);
 
-  useEffect(() => {
-    if (!token) {
-      return;
-    }
+  // useEffect(() => {
+  //   if (!token) {
+  //     return;
+  //   }
 
-    fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data) {
-          setUser({ ...data });
-        } else {
-          alert("User not found.");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [user, token]);
+  //   fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`, {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (data) {
+  //         // setUser({ ...data });
+  //         dispatch(setUser({...data}));
+  //       } else {
+  //         alert("User not found.");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [user, token]);
   
   
 
@@ -145,7 +154,8 @@ export const MainView = () => {
           };
         });
 
-        setMovies(moviesFromApi);
+        // setMovies(moviesFromApi);
+        dispatch(setMovies(moviesFromApi));
         console.log("movie data", moviesFromApi);
       });
   }, [token]);
@@ -160,131 +170,91 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
-      {user ? (
-        <NavigationBar
-          user={user}
-          onLoggedOut={() => {
-            setUser(null);
-            setToken(null);
-            localStorage.clear();
-          }}
-        />
-      ) : (
-        ""
-      )}
-      <Routes>
-        <Route
-          path="/signup"
-          element={
-            <React.Fragment>
-              {user ? <Navigate to="/" /> : <SignupView />}
-            </React.Fragment>
-          }
-        />
+      <NavigationBar />
 
-        <Route
-          path="/login"
-          element={
-            <React.Fragment>
-              {user ? (
-                <Navigate to="/" />
-              ) : (
-                <LoginView
-                  onLoggedIn={(user, token) => {
-                    setUser(user);
-                    setToken(token);
-                  }}
-                />
-              )}
-            </React.Fragment>
-          }
-        />
+    <Row className="justify-content-md-center"> 
 
-        
+    <Routes>
 
-<Route
-  path="/"
-  element={
-    <React.Fragment>
-      {!user ? (
-        <Navigate to="/login" />
-      ) : movies.length === 0 ? (
-        <Col>Hold on! We are fetching the best movies for you.</Col>
-      ) : (
-        <Row xs={1} sm={2} md={4} className="justify-content-center py-5">
-      
-          {movies.map((movie) => (
+    <Route
+            path="/signup"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={5}>
+                    <SignupView />
+                  </Col>
+                )}
+              </>
+            }
+          />
 
-            <Col key={movie.id}>
-              <MovieCard
-                movie={movie}
-                hasFavorite={favoriteMovies.includes(movie)}
-                toggleFavorite={toggleFavorite}
-              />
-            </Col>
-          ))}
-        
-        </Row>
-      )}
-    </React.Fragment>
-  }
-/>
+          <Route
+            path="/login"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={5}>
+                    <LoginView />
+                  </Col>
+                )}
+              </>
+            }
+          />
 
-
-
-
-
-      
-
-
-        <Route
-          path="/profile"
-          element={
-            <React.Fragment>
-              {user ? (
-                <ProfileView
-                  user={user}
-                  storedUser={storedUser}
-                  favoriteMovies={favoriteMovies}
-                  toggleFavorite={toggleFavorite}
-                  token={token}
-                  onLoggedOut={() => {
-                    setUser(null);
-                    setToken(null);
-                    localStorage.clear();
-                  }}
-                  // onLoggedIn={(user, token) => { setUser(user); setToken(token) }}
-                />
-              ) : (
-                <Navigate to="/login" />
-              )}
-            </React.Fragment>
-          }
-        />
-
-        <Route
-          path="/movies/:movieId"
-          element={
-            <React.Fragment>
-              {!user ? (
-                <Navigate to="/login" />
-              ) : movies.length === 0 ? (
-                <Col>Hold on! We are fetching the best movies for you.</Col>
-              ) : (
-                <Row className="justify-content-center py-5">
-                  <Col md={8} className="mb-5">
-                    <MovieView
-                      movies={movies}
-                      hasFavorite={favoriteMovies.includes(movies)}
-                      toggleFavorite={toggleFavorite}
+         <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty!</Col>
+                ) : (
+                  <Col md={8}>
+                    <ProfileView 
+                    user={user} 
+                    movies={movies} 
+                    token={token}
+                    favoriteMovies={favoriteMovies}
+                    toggleFavorite={toggleFavorite}  
                     />
                   </Col>
-                </Row>
-              )}
-            </React.Fragment>
-          }
-        />
-      </Routes>
+                )}
+              </>
+            }
+          />
+
+          <Route
+            path="/movies/:movieId"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty!</Col>
+                ) : (
+                  <Col md={8}>
+                    <MovieView movies={movies} />
+                  </Col>
+                )}
+              </>
+            }
+          />
+
+          <Route
+            path="/"
+            element={
+              <>{!user ? <Navigate to='/login' replace /> : <MoviesList />}</>
+            }
+          />
+     
+     </Routes>
+     </Row>
     </BrowserRouter>
-  );
+ );
 };

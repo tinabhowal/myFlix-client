@@ -3,6 +3,10 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducers/user";
+import { setToken } from "../../redux/reducers/token";
+
 export const LoginView = ({onLoggedIn}) => {
 
   const [username, setUsername] = useState("");   
@@ -10,6 +14,7 @@ export const LoginView = ({onLoggedIn}) => {
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const dispatch = useDispatch();
   
 
   // Verify that the username is of minimum length
@@ -56,7 +61,9 @@ export const LoginView = ({onLoggedIn}) => {
          if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
-          onLoggedIn(data.user, data.token);
+          // onLoggedIn(data.user, data.token);
+          dispatch(setUser(data.user));
+          dispatch(setToken(data.token));
          }else{
           alert("No such user");
          }
