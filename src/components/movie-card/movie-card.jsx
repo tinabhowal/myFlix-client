@@ -4,16 +4,16 @@ import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { FavoriteButton } from "./favorite";
+// export const MovieCard = ({movie, hasFavorite, toggleFavorite}) => {
+  export const MovieCard = ({movie}) => {
+// const handleFavoriteClick = (e) => {
+//   e.preventDefault();
+//   toggleFavorite(movie);
 
-export const MovieCard = ({movie, hasFavorite, toggleFavorite}) => {
+// }
 
-const handleFavoriteClick = (e) => {
-  e.preventDefault();
-  toggleFavorite(movie);
-
-}
-
-const favoriteButtonLabel = hasFavorite? "Remove from favorite" : "Add to favorite";
+// const favoriteButtonLabel = hasFavorite? "Remove from favorite" : "Add to favorite";
 
 return (
     
@@ -24,16 +24,27 @@ return (
         <Card.Text><span>Director: </span> {movie.director.Name}</Card.Text>
         <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
         
-        <Button variant="link" onClick={ handleFavoriteClick }>
+        {/* <Button variant="link" onClick={ handleFavoriteClick }> */}
           {/* {favoriteButtonLabel} */}
-          <FontAwesomeIcon 
+          {/* <FontAwesomeIcon 
           icon={faHeart} 
           style={{ fontSize: '2em', padding: '0.1em' }}
           className={hasFavorite? "text-danger" : ""}/>
-          </Button>
+          </Button> */}
           
+        
+        
+        
+        
+
+
         <Button variant="link">See more</Button>
         </Link>
+
+
+        <FavoriteButton className='mt-auto' movie={movie} />
+
+        
       </Card.Body>
       </Card>
 //     <Card className="h-100">

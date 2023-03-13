@@ -9,7 +9,7 @@ import { Card, Container, Row, Col } from "react-bootstrap";
 
 import "./profile-view.scss";
 
-export const ProfileView = ({ user, token, favoriteMovies, toggleFavorite, storedUser, onLoggedOut}) => {
+export const ProfileView = ({ user, token}) => {
 
     
 
@@ -53,12 +53,7 @@ return(
                 <Col md="auto"  className="border-0" >
                 <Card className="border-0">
                     <Card.Body>
-                    <FavoriteMovies 
-              
-              favoriteMovies={favoriteMovies}
-              toggleFavorite={toggleFavorite}
-              
-              />
+                    <FavoriteMovies/> 
                     </Card.Body>
                 </Card>
                 </Col>

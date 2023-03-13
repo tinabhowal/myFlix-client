@@ -7,22 +7,23 @@ import "./movie-view.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
-export const MovieView = ({ movies,  hasFavorite, toggleFavorite }) => {
+// export const MovieView = ({ movies,  hasFavorite, toggleFavorite }) => {
+  export const MovieView = ({ movies }) => {
 
   const { movieId } = useParams();
 
   const movie = movies.find((m) => m.id === movieId);
   
   
-  const handleFavoriteClick = (e) => {
-    e.preventDefault();
-    toggleFavorite(movie);
+  // const handleFavoriteClick = (e) => {
+  //   e.preventDefault();
+  //   toggleFavorite(movie);
   
-  }
+  // }
 
   
 
-  const favoriteButtonLabel = hasFavorite? "Remove from favorite" : "Add to favorite";
+  // const favoriteButtonLabel = hasFavorite? "Remove from favorite" : "Add to favorite";
   
 
   
@@ -69,13 +70,13 @@ export const MovieView = ({ movies,  hasFavorite, toggleFavorite }) => {
       <button className="back-button">Back</button>
       {/* <Button variant="link" onClick={ handleFavoriteClick }>{favoriteButtonLabel}</Button> */}
       </Link>
-      <Button variant="link"  onClick={handleFavoriteClick}>
+      {/* <Button variant="link"  onClick={handleFavoriteClick}>
         <FontAwesomeIcon
         icon={faHeart}
         style={{ fontSize: '2em', padding: '0.1em' }}
         className={hasFavorite? "text-danger" : ""}
         />
-      </Button>
+      </Button> */}
     </div>
   );
 };
