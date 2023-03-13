@@ -53,12 +53,12 @@ return(
                 <Col md="auto"  className="border-0" >
                 <Card className="border-0">
                     <Card.Body>
-                    <FavoriteMovies 
+                    {/* <FavoriteMovies 
               
               favoriteMovies={favoriteMovies}
               toggleFavorite={toggleFavorite}
               
-              />
+              /> */}
                     </Card.Body>
                 </Card>
                 </Col>
