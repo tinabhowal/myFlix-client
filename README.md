@@ -1,33 +1,33 @@
-# myFlix-client
-Using React, build the client-side for an app called myFlix based on its
-existing server-side code (REST API and database)
 
-STEPS INVOLVED:
-•	Create a new repository in GitHub , (separate from the backend) and initialize package.json.
-•	Install package.json to install the right dependencies. (after installation , remove "main": "index.js")
-•	Also, create a .gitignore file and include 
-node_modules
-.cache
-.parcel-cache
-•	Then, npm install -g parcel( It is however suggested to install it locally. This is because other users might   
-have a newer or older version of Parcel that’s incompatible with the app’s build when trying to 
-run it or test it.
-Therefore, you can alternatively install Parcel as a local developer dependency. This will force anyone accessing the app to use the same version of Parcel, since     the version will be locked into the “package.json” and “package-lock.json” files in the project directory.
-•	npm install –save react react-dom
+MyFlix-client-side application
 
-•	Three new files to be created in src folder inside the project folder to include the following three files:
-index.jsx   (This file contains the code needed to create a small, working React app)
-index.scss
-index.html   (This file represents the entry point of your app. Parcel will begin gathering dependencies from here and bundling them. Notice there’s no SCSS included; it should, instead, be imported from the “index.jsx” file. Rather than the classic “index.html” → “index.css” structure, here you have “index.html” → “index.jsx” → “index.scss.”)
+Based on an existing server-side code (REST API and database), MyFlix is a client-side application,built using React. It is a single-page, responsive app with routing. It has rich interactions, several interface views, and a polished user experience. The client-side developed in this Achievement will support the existing server-side (https://github.com/tinabhowal/movie_api) by facilitating user requests and rendering the response from the server-side via a number of different interface views.
 
-•	Instruct Parcel to build your project
-Run parcel src/index.html (the path to follow) in the terminal.
+Tech stack - MERN
 
-TROUBLESHOOTING:
-NOTE!
-For some computers, Parcel v2 doesn't work when you run parcel src/index.html, instead returning Error - module not found @parcel\fs-search\fs-search.win32-x64-msvc.node.
-The package is failing due to a missing library on the computer. Fs-search requires Microsoft Visual C++ 2015 Redistributable (x64).
-You can install Microsoft Visual C++ 2015 Redistributable x64
-NOTE!
-You might get an error stating @parcel/core: Failed to resolve 'process'. If this is the case, go ahead and install it globally by running npm install -g process then try to run your app again.
 
+Who is the app for?
+-The app is for movie enthusiasts who enjoy reading information about
+different movies.
+
+Where is the app hosted?
+- The app is hosted on Netlify (https://mymoviesflix.netlify.app/login).  
+
+Features:
+-Single page application.
+-Uses state routing to navigate between views and share URLs.
+-Gives users the option to filter movies using a “search” feature.
+-Uses Parcel as its build tool.
+-Written using the React library.
+-Uses Bootstrap as a UI library for styling and responsiveness.
+-Contains function components.
+-Uses React Redux for state management of few features (eg. filtering movies and adding favorite movies.)
+
+
+
+Future developments:
+-Using React Redux for state management of features.
+-Polishing the design for a better user experience.
+
+Dependencies:
+Check package.json
