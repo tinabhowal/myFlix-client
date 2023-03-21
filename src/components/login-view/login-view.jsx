@@ -1,7 +1,9 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import "./login-view.scss";
+
 
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/reducers/user";
@@ -15,6 +17,7 @@ export const LoginView = ({onLoggedIn}) => {
   const [passwordError, setPasswordError] = useState("");
 
   const dispatch = useDispatch();
+
   
 
   // Verify that the username is of minimum length
@@ -76,18 +79,32 @@ export const LoginView = ({onLoggedIn}) => {
   };
   
 
-  
+  // Add the 'login-view' class to the body element when the component mounts
+  useEffect(() => {
+    document.body.classList.add("login-view");
+    // Remove the 'login-view' class when the component unmounts
+    return () => {
+      document.body.classList.remove("login-view");
+    };
+  }, []);
+
   return (
-    <Form onSubmit={handleSubmit}>
+
+   <div className="login-view">
+    <Form 
+    onSubmit={handleSubmit}>
       <Form controlId="formUsername">
-        <Form.Label>Username:</Form.Label>
+        {/* <Form.Label>Username:</Form.Label> */}
+        <Form.Label></Form.Label>
         <Form.Control
+        placeholder="Username"
         type="text"
         value={username}
         onChange={(e) => {
         setUsername(e.target.value);
         validateUsername();
         }}
+        className="my-custom-class"
         />
         {usernameError && <p style={{color: "red"}}>{usernameError}</p>}
       </Form>
@@ -95,19 +112,22 @@ export const LoginView = ({onLoggedIn}) => {
     
 
       <Form.Group controlId="formPassword">
-        <Form.Label>Password:</Form.Label>
+        {/* <Form.Label>Password:</Form.Label> */}
         <Form.Control
+          placeholder="Password"
           type="password"
           value={password}
           onChange={(e) => {
           setPassword(e.target.value);
           validatePassword();
           }}
+          className="my-custom-class"
           />
           {passwordError && <p style={{color: "red"}}>{passwordError}</p>}
       </Form.Group>
       <Button variant="primary" type="submit">Submit</Button>
     </Form>
+    </div>
   )
 
 }

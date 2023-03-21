@@ -6,6 +6,27 @@
   padding: 4px 12px;
 }
 
+body.login-view {
+  height: 100vh;
+  background-image: url("background.7fc2ee76.svg");
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.my-custom-class {
+  filter: drop-shadow(0 10px 10px #00000040);
+  -webkit-backdrop-filter: blur(27.5px);
+  backdrop-filter: blur(27.5px);
+  border: 1px solid;
+  border-image-source: linear-gradient(114.55deg, #ffffffab 2.13%, #fff0 98.14%), radial-gradient(97.09% 224.61% at 1.38% 96.94%, #d8d8d800 0%, #d8d8d8 100%), radial-gradient(97.57% 210.75% at 0.9% 2.98%, #d8d8d800 0%, #d8d8d8 100%);
+  color: #0000;
+  background: radial-gradient(97.09% 224.61% at 1.38% 96.94%, #d8d8d800 0%, #d8d8d8 100%), radial-gradient(97.57% 210.75% at .9% 2.98%, #d8d8d800 0%, #d8d8d8 100%), radial-gradient(97.57% 210.75% at .9% 2.98%, #fff6 0%, #fff0 100%), linear-gradient(114.55deg, #ffffffe6 2.13%, #fff0 98.14%);
+  border-radius: 10px;
+  box-shadow: 0 10px 10px #00000040;
+}
+
 .shadow-effect {
   transition: all .3s ease-in-out;
   box-shadow: 0 0 10px #0000001a;
