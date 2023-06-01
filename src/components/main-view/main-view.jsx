@@ -1,7 +1,3 @@
-
-
-
-
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -170,7 +166,7 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
-      <NavigationBar />
+      {/* <NavigationBar /> */}
 
     <Row className="justify-content-md-center"> 
 
@@ -184,7 +180,7 @@ export const MainView = () => {
                   <Navigate to="/" />
                 ) : (
                   <Col md={5}>
-                    <SignupView />
+                    <SignupView/>
                   </Col>
                 )}
               </>
@@ -207,9 +203,11 @@ export const MainView = () => {
           />
 
          <Route
+         
             path="/profile"
             element={
               <>
+              <NavigationBar />
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
@@ -233,6 +231,7 @@ export const MainView = () => {
             path="/movies/:movieId"
             element={
               <>
+              <NavigationBar />
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
@@ -249,7 +248,9 @@ export const MainView = () => {
           <Route
             path="/"
             element={
-              <>{!user ? <Navigate to='/login' replace /> : <MoviesList />}</>
+              <>
+              <NavigationBar />
+              {!user ? <Navigate to='/login' replace /> : <MoviesList />}</>
             }
           />
      

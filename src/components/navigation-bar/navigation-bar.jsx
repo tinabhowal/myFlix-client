@@ -16,10 +16,10 @@ export const NavigationBar = () => {
     localStorage.clear();
   };
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" fixed="top">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          Movies App
+          MyFix 
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
