@@ -11,7 +11,7 @@ Who is the app for?
 different movies.
 
 Where is the app hosted?
-- The app is hosted on Netlify (https://mymoviesflix.netlify.app/login).  
+- The app is hosted on Netlify (https://figma--mymoviesflix.netlify.app/login).  
 
 Features:
 -Single page application.
