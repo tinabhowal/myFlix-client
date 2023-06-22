@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/reducers/user";
 import { setToken } from "../../redux/reducers/token";
+import "./navigation-bar.scss";
 
 export const NavigationBar = () => {
   const user = useSelector((state) => state.user.user);
@@ -16,14 +17,14 @@ export const NavigationBar = () => {
     localStorage.clear();
   };
   return (
-    <Navbar bg="light" expand="lg" fixed="top">
-      <Container>
-        <Navbar.Brand as={Link} to="/">
+    <Navbar bg="light" expand="lg" fixed="top" className="navbar-shadow">
+      <Container >
+        <Navbar.Brand as={Link} to="/" className="brand-text">
           MyFix 
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="me-auto navbar-links">
             {!user && (
               <>
                 <Nav.Link as={Link} to="/login">
@@ -36,13 +37,13 @@ export const NavigationBar = () => {
             )}
             {user && (
               <>
-                <Nav.Link as={Link} to="/">
+                <Nav.Link as={Link} to="/"  className="nav-link-right">
                   Home
                 </Nav.Link>
-                <Nav.Link as={Link} to="/profile">
+                <Nav.Link as={Link} to="/profile"  className="nav-link-right">
                   Profile
                 </Nav.Link>
-                <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
+                <Nav.Link onClick={onLoggedOut}  className="nav-link-right">Logout</Nav.Link>
               </>
             )}
           </Nav>

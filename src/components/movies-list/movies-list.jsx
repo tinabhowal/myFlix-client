@@ -18,7 +18,7 @@ export const MoviesList = () => {
             <MoviesFilter/>
         </Row>
 
-        <Row>
+        <Row style={{ marginTop: '50px' }}>
             {movies.length === 0? (
                 <Col>Oops! The list is empty.</Col>
             ):(

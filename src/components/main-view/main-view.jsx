@@ -250,7 +250,7 @@ export const MainView = () => {
             element={
               <>
               <NavigationBar />
-              {!user ? <Navigate to='/login' replace /> : <MoviesList />}</>
+              {!user ? <Navigate to='/login' replace /> : <MoviesList/>}</>
             }
           />
      

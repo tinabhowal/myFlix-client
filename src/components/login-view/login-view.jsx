@@ -156,7 +156,7 @@ export const LoginView = ({onLoggedIn}) => {
             background: 'linear-gradient(181.88deg, rgba(217, 217, 217, 0.2) 1.91%, rgba(217, 217, 217, 0) 98.41%)',
             borderTop: '1px solid rgba(255, 255, 255, 0.7)',
             boxShadow: 'inset -5px -5px 10px rgba(255, 255, 255, 0.1), inset 5px 5px 10px rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(4px)',
+            backdropFilter: 'blur(6px)',
             borderRadius: '10px',
             margin: '10px',
             boxSizing: 'border-box',
@@ -177,3 +177,6 @@ export const LoginView = ({onLoggedIn}) => {
   )
 
 }
+
+
+//npx parcel src/index.html

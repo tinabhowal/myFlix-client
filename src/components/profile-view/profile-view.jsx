@@ -24,7 +24,7 @@ export const ProfileView = ({ user, token}) => {
     
 return(
     
-      <Container>
+      <Container className="top-margin">
         <Row className="justify-content-md-center shadow-effect p-4 mb-4 bg-white" >
             <Col md="auto"  className="border-0">
         <Card className="border-0">
