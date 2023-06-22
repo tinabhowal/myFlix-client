@@ -14,11 +14,12 @@ export const MoviesList = () => {
 
     return (
         <>
-        <Row>
-            <MoviesFilter/>
+        <Row style={{position:'relative'}}>
+        <Row style={{display:'flex', justifyContent:'center'}}>
+            <MoviesFilter />
         </Row>
 
-        <Row style={{ marginTop: '50px' }}>
+        <Row>
             {movies.length === 0? (
                 <Col>Oops! The list is empty.</Col>
             ):(
@@ -28,6 +29,7 @@ export const MoviesList = () => {
                     </Col>
                 ))
             )}
+        </Row>
         </Row>
         </>
     );

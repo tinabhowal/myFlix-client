@@ -14,6 +14,7 @@ export const MoviesFilter = () => {
         aria-placeholder="search"
         value={filter}
         onChange={(e) => dispatch(setFilter(e.target.value))}
+        style={{ width:'80%', marginTop: '100px', marginBottom: '20px'}}
         />
         );
 };
