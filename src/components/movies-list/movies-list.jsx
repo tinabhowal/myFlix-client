@@ -15,7 +15,7 @@ export const MoviesList = () => {
     return (
         <>
         <Row>
-            <MoviesFilter/>
+            <MoviesFilter style={{margin: '100px'}}/>
         </Row>
 
         <Row>
