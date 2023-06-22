@@ -128,7 +128,7 @@ export const SignupView = () => {
    >
       <Form 
       onSubmit={handleSubmit}
-      style={{display:"flex", justifyContent:"center", flexDirection: 'column', alignItems:"center"}}>
+      style={{display:"flex", justifyContent:"center", flexDirection: 'column', alignItems:"center", marginTop:'100px'}}>
         <Form.Group controlId="formUsername">
           <Form.Label></Form.Label>
           <Form.Control

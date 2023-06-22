@@ -101,7 +101,7 @@ export const LoginView = ({onLoggedIn}) => {
    }}>
     <Form 
     onSubmit={handleSubmit}
-    style={{display:"flex", justifyContent:"center", flexDirection: 'column', alignItems:"center"}}>
+    style={{display:"flex", justifyContent:"center", flexDirection: 'column', alignItems:"center", marginTop: '100px'}}>
       <Form controlId="formUsername">
         {/* <Form.Label>Username:</Form.Label> */}
         <Form.Label ></Form.Label>
