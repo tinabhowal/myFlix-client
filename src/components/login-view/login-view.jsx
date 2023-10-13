@@ -53,7 +53,7 @@ export const LoginView = ({onLoggedIn}) => {
         Username: username,
         Password: password
       };
-      fetch("https://myflix-gqp8.onrender.com/login", {
+      fetch("http://3.120.149.229/login", {
         method: "POST",
         headers: {
           "Content-Type":"application/json"

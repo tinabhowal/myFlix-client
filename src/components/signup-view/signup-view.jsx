@@ -66,7 +66,7 @@ export const SignupView = () => {
           Birthday: birthday
         };
       
-      fetch('https://myflix-gqp8.onrender.com/users', {
+      fetch('http://3.120.149.229/users', {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

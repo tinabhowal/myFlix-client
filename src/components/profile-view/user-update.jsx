@@ -26,7 +26,7 @@ export const UserUpdate = ({user, token}) => {
     }
     
 
-    fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`,
+    fetch(`http://3.120.149.229/users/${user.Username}`,
     {
         method: "GET",
         headers:{
@@ -84,7 +84,7 @@ export const UserUpdate = ({user, token}) => {
             Email:email,
             Birthday:birthday
           };
-          fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`, {
+          fetch(`http://3.120.149.229/users/${user.Username}`, {
             method: "PUT",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -111,7 +111,7 @@ export const UserUpdate = ({user, token}) => {
 
         useEffect(() => {
             if(updateUser){
-               fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`,{
+               fetch(`http://3.120.149.229/users/${user.Username}`,{
                      method: "GET",
                      headers:{
                         Authorization: `Bearer ${token}`,
@@ -143,7 +143,7 @@ export const UserUpdate = ({user, token}) => {
         
         if(confirmDelete){
             
-            fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`, {
+            fetch(`http://3.120.149.229/users/${user.Username}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

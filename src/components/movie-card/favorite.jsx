@@ -20,7 +20,7 @@ export const FavoriteButton = ({ movie }) => {
 
   useEffect(() => {
     // Fetch the user's data from your backend and use that to initialize the state.
-    fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`,
+    fetch(`http://3.120.149.229/users/${user.Username}`,
       {
         method: 'GET',
         headers: {
@@ -43,7 +43,7 @@ export const FavoriteButton = ({ movie }) => {
   }, []);
 
   const addFavoriteMovie = () => {
-    fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}/movies/${movie.id}`,
+    fetch(`http://3.120.149.229/users/${user.Username}/movies/${movie.id}`,
       {
         method: 'POST',
         headers: {
@@ -68,7 +68,7 @@ export const FavoriteButton = ({ movie }) => {
 
 
   const deleteFavoriteMovie = () => {
-    fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}/movies/${movie.id}`,
+    fetch(`http://3.120.149.229/users/${user.Username}/movies/${movie.id}`,
       {
         method: 'DELETE',
         headers: {
