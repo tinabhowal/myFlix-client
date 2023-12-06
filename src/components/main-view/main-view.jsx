@@ -35,7 +35,7 @@ export const MainView = () => {
       return;
     }
 
-    fetch("http://3.120.149.229/movies", {
+    fetch("http://3.66.16.145/movies", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -105,7 +105,8 @@ export const MainView = () => {
                   <Navigate to="/" />
                 ) : (
                   <Col md={5}>
-                    <LoginView />
+                    <LoginView 
+                    user={user}/>
                   </Col>
                 )}
               </>

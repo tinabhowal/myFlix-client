@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/reducers/user";
 import { setToken } from "../../redux/reducers/token";
 
-export const LoginView = ({onLoggedIn}) => {
+export const LoginView = ({onLoggedIn , user}) => {
 
   const [username, setUsername] = useState("");   
   const [password, setPassword] = useState("");
@@ -53,7 +53,7 @@ export const LoginView = ({onLoggedIn}) => {
         Username: username,
         Password: password
       };
-      fetch("http://3.120.149.229/login", {
+      fetch("http://3.66.16.145/login", {
         method: "POST",
         headers: {
           "Content-Type":"application/json"
