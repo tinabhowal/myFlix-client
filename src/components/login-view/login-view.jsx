@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
+import { Spinner } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import "./login-view.scss";
 
@@ -15,7 +16,7 @@ export const LoginView = ({onLoggedIn}) => {
   const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   
@@ -49,6 +50,7 @@ export const LoginView = ({onLoggedIn}) => {
     validateUsername();
     let data;
     if (!passwordError && !usernameError) {
+      setLoading(true);
       data = {
         Username: username,
         Password: password
@@ -74,7 +76,10 @@ export const LoginView = ({onLoggedIn}) => {
         .catch((e)=>{
           alert("Something went wrong");
           console.log(e);
-        });
+        })
+        .finally(() => {
+          setLoading(false);
+        })
     }
   };
   
@@ -169,7 +174,18 @@ export const LoginView = ({onLoggedIn}) => {
           />
           {passwordError && <p style={{color: "red"}}>{passwordError}</p>}
       </Form.Group>
-      <Button variant="primary" type="submit" style={{marginTop:"0.5rem"}}>LOGIN</Button>
+
+{loading ? (
+  <Spinner animation="border" role="status" variant="light">
+  <span className="visually-hidden">Loading...</span>
+</Spinner>
+): (
+  <Button variant="primary" type="submit" style={{marginTop:"0.5rem"}}>LOGIN</Button>
+)}
+
+
+
+      {/* <Button variant="primary" type="submit" style={{marginTop:"0.5rem"}}>LOGIN</Button> */}
     </Form>
     <p style={{color:"#FFFFFF", whiteSpace:"nowrap"}}>Don't have an account?
     <a href="/signup"><i>SIGN UP</i></a></p>
@@ -177,6 +193,11 @@ export const LoginView = ({onLoggedIn}) => {
   )
 
 }
+
+
+
+
+
 
 
 //npx parcel src/index.html

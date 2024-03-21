@@ -21,11 +21,7 @@ import Col from "react-bootstrap/Col";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
-  // const storedUser = JSON.parse(localStorage.getItem("user"));
-  // const storedToken = localStorage.getItem("token");
-  // const [user, setUser] = useState(storedUser ? storedUser : null);
-  // const [token, setToken] = useState(storedToken ? storedToken : null);
-  //const [movies, setMovies] = useState([]);
+  
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.token.token || localStorage.getItem('token'));
   const movies = useSelector((state) => state.movies.list);
@@ -33,93 +29,7 @@ export const MainView = () => {
   
   const dispatch = useDispatch();
 
-  // const addFavoriteMovie = (movie) => {
-  //   return fetch(
-  //     `https://myflix-gqp8.onrender.com/users/${user.Username}/movies/${movie.id}`,
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setFavoriteMovies([...favoriteMovies, movie]);
-  //       console.log("favorites from main view", favoriteMovies);
-        
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
-
-  // const deleteFavoriteMovie = (movie) => {
-  //   return fetch(
-  //     `https://myflix-gqp8.onrender.com/users/${user.Username}/movies/${movie.id}`,
-  //     {
-  //       method: "DELETE",
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setFavoriteMovies(
-  //         favoriteMovies.filter(
-  //           (favoriteMovie) => favoriteMovie.id !== movie.id
-  //         )
-  //       );
-        
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
-
-  // const toggleFavorite = (movie) => {
-  //   const index = favoriteMovies.indexOf(movie);
-  //   if (index > -1) {
-  //     deleteFavoriteMovie(movie);
-  //   } else {
-  //     addFavoriteMovie(movie);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const hasFavoriteMovies = movies.filter((movie) =>
-  //     favoriteMovies.includes(movie.id)
-  //   );
-  //   setFavoriteMovies([...hasFavoriteMovies]);
-  // }, [movies, user]);
-
-  // useEffect(() => {
-  //   if (!token) {
-  //     return;
-  //   }
-
-  //   fetch(`https://myflix-gqp8.onrender.com/users/${user.Username}`, {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data) {
-  //         // setUser({ ...data });
-  //         dispatch(setUser({...data}));
-  //       } else {
-  //         alert("User not found.");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [user, token]);
   
-  
-
   useEffect(() => {
     if (!token) {
       return;
@@ -211,7 +121,7 @@ export const MainView = () => {
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
+                  <Col>Hold on! Loading the best movies for you.</Col>
                 ) : (
                   <Col md={8}>
                     <ProfileView 
@@ -235,7 +145,7 @@ export const MainView = () => {
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
+                  <Col>Hold on! Loading the best movies for you.</Col>
                 ) : (
                   <Col md={8}>
                     <MovieView movies={movies} />

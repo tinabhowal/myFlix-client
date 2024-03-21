@@ -9,13 +9,16 @@ import "./navigation-bar.scss";
 
 export const NavigationBar = () => {
   const user = useSelector((state) => state.user.user);
+  
   const dispatch = useDispatch();
 
-  const onLoggedOut = () => {
-    dispatch(setUser(null));
-    dispatch(setToken(null));
+  const onLoggedOut = async() => {
+     dispatch(setUser(null));
+     dispatch(setToken(null));
     localStorage.clear();
   };
+
+
   return (
     <Navbar bg="light" expand="lg" fixed="top" className="navbar-shadow">
       <Container >
@@ -52,3 +55,9 @@ export const NavigationBar = () => {
     </Navbar>
   );
 };
+
+
+
+
+
+
