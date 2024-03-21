@@ -1,5 +1,3 @@
-
-
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,9 +11,16 @@ export const NavigationBar = () => {
   const dispatch = useDispatch();
 
   const onLoggedOut = async() => {
-     dispatch(setUser(null));
-     dispatch(setToken(null));
-    localStorage.clear();
+    // Dispatch actions to clear user info and token
+    dispatch(setUser(null));
+    dispatch(setToken(null));
+
+    // Clear user info from local storage
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+
+    // Redirect to the login page
+    window.location.href = '/login';
   };
 
 
@@ -55,6 +60,11 @@ export const NavigationBar = () => {
     </Navbar>
   );
 };
+
+
+
+
+
 
 
 

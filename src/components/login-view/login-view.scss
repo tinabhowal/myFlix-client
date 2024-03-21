@@ -1,17 +1,37 @@
-body.login-view {
-    // background-image: url('../../asset/background.svg');
-    background-image: url('../../asset/Group\ 22.png');
-    background-size: cover;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+// body.login-view {
+//     // background-image: url('../../asset/background.svg');
+//     background-image: url('../../asset/Group\ 22.png');
+//     background-size: cover;
+//     background-repeat: no-repeat;
+//     height: 100vh;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
    
     
-    /* Add any other styles you want */
-  }
+//     /* Add any other styles you want */
+//   }
 
   
   
   
-  
+  body.login-view {
+    /* Use background-size: cover to scale the background image as large as possible while maintaining its aspect ratio */
+    background-size: cover;
+    /* Center the background image */
+    background-position: center;
+    /* Specify the background image */
+    background-image: url('../../asset/Group\ 22.png');
+    /* Prevent the background image from repeating */
+    background-repeat: no-repeat;
+    /* Set the height of the background to cover the entire viewport */
+    height: 100vh;
+    width: 100vw;
+    /* Center the content vertically and horizontally */
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    /* Add any other styles you want */
+    padding-top: 20px;
+   
+}

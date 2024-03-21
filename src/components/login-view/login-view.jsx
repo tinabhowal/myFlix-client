@@ -102,11 +102,13 @@ export const LoginView = ({onLoggedIn}) => {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '0px',
-    gap: '40px'
+    gap: '10px',
+
+   
    }}>
     <Form 
     onSubmit={handleSubmit}
-    style={{display:"flex", justifyContent:"center", flexDirection: 'column', alignItems:"center", marginTop: '100px'}}>
+    style={{display:"flex", justifyContent:"center", flexDirection: 'column', alignItems:"center", }}>
       <Form controlId="formUsername">
         {/* <Form.Label>Username:</Form.Label> */}
         <Form.Label ></Form.Label>
@@ -125,7 +127,7 @@ export const LoginView = ({onLoggedIn}) => {
           boxShadow: 'inset -5px -5px 10px rgba(255, 255, 255, 0.1), inset 5px 5px 10px rgba(255, 255, 255, 0.1)',
           backdropFilter: 'blur(10px)',
           borderRadius: '10px',
-          margin: '10px',
+          margin: '5px',
           boxSizing: 'border-box',
           width: '350px',
           height: '50px',
@@ -163,7 +165,7 @@ export const LoginView = ({onLoggedIn}) => {
             boxShadow: 'inset -5px -5px 10px rgba(255, 255, 255, 0.1), inset 5px 5px 10px rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(6px)',
             borderRadius: '10px',
-            margin: '10px',
+            margin: '5px',
             boxSizing: 'border-box',
             width: '350px',
             height: '50px',
@@ -188,7 +190,8 @@ export const LoginView = ({onLoggedIn}) => {
       {/* <Button variant="primary" type="submit" style={{marginTop:"0.5rem"}}>LOGIN</Button> */}
     </Form>
     <p style={{color:"#FFFFFF", whiteSpace:"nowrap"}}>Don't have an account?
-    <a href="/signup"><i>SIGN UP</i></a></p>
+    <a href="/signup"><i>SIGN UP</i></a>
+    </p>
     </div>
   )
 
