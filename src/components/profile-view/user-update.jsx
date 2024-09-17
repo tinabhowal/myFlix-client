@@ -2,9 +2,14 @@ import React from 'react'
 import { Form,Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import user from '../../redux/reducers/user';
+import token from '../../redux/reducers/token';
+import { useSelector } from 'react-redux';
 
+export const UserUpdate = () => {
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.token.token);
 
-export const UserUpdate = ({user, token}) => {
   const [updateUser, setUpdateUser] = useState(false);
   const [username, setUsername] = useState(user.username);
   const [password, setPassword] = useState(user.password);

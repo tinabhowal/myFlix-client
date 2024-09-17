@@ -10,7 +10,7 @@ export const MoviesList = () => {
     const movies = useSelector((state) => state.movies.list);
     const filter = useSelector((state) => state.movies.filter).trim().toLowerCase();
 
-    const filteredMovies = movies.filter((movie) => movie.title.toLowerCase().includes(filter));
+    const filteredMovies = movies.filter((movie) =>  movie && movie.title && movie.title.toLowerCase().includes(filter));
 
     return (
         <>
@@ -21,7 +21,7 @@ export const MoviesList = () => {
 
         <Row>
             {movies.length === 0? (
-                <Col>Oops! The list is empty.</Col>
+                <Col>Hold on! Fetching the best for you.</Col>
             ):(
                 filteredMovies.map((movie) => (
                     <Col className="mb-4" key={movie.id} md={3}>

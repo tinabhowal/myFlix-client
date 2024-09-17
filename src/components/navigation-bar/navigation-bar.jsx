@@ -28,7 +28,7 @@ export const NavigationBar = () => {
     <Navbar bg="light" expand="lg" fixed="top" className="navbar-shadow">
       <Container >
         <Navbar.Brand as={Link} to="/" className="brand-text">
-          MyFix 
+          myflix
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">

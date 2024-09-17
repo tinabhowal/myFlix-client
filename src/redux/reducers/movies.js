@@ -9,9 +9,12 @@ const moviesSlice = createSlice({
         },
         setFilter:(state,action) => {
             state.filter = action.payload
+        },
+        addMovie:(state, action) => {
+            state.list.push(action.payload)
         }
     }
 });
 
-export const { setMovies, setFilter } = moviesSlice.actions;
+export const { setMovies, setFilter, addMovie } = moviesSlice.actions;
 export default moviesSlice.reducer;

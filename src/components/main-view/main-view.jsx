@@ -25,7 +25,7 @@ export const MainView = () => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.token.token || localStorage.getItem('token'));
   const movies = useSelector((state) => state.movies.list);
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  //const [favoriteMovies, setFavoriteMovies] = useState([]);
   
   const dispatch = useDispatch();
 
@@ -51,32 +51,22 @@ export const MainView = () => {
             image: movie.ImagePath,
             title: movie.Title,
             description: movie.Description,
-            // genre,
             genre: movie.Genre,
-
             actors: movie.Actors,
-            // director,
             director: movie.Director
           };
         });
 
-        // setMovies(moviesFromApi);
         dispatch(setMovies(moviesFromApi));
         console.log("movie data", moviesFromApi);
       });
-  }, [token]);
+  }, [token, movies]);
 
-  // let similarMovies = () => {
-  //   return movies.filter((movie) => {
-  //     if (movie.genre.name === selectedMovie.genre.name){
-  //     return movie.genre.name === selectedMovie.genre.name && movie.title !== selectedMovie.title;
-  //   }
-  //   });
-  // };
+
 
   return (
     <BrowserRouter>
-      {/* <NavigationBar /> */}
+      
 
     <Row className="justify-content-md-center"> 
 
@@ -124,12 +114,7 @@ export const MainView = () => {
                   <Col>Hold on! Loading the best movies for you.</Col>
                 ) : (
                   <Col md={8}>
-                    <ProfileView 
-                    user={user} 
-                    movies={movies} 
-                    token={token}
-                    // favoriteMovies={favoriteMovies}
-                    // toggleFavorite={toggleFavorite}  
+                    <ProfileView  
                     />
                   </Col>
                 )}

@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/reducers/user";
 import { setToken } from "../../redux/reducers/token";
 
-export const LoginView = ({onLoggedIn}) => {
+export const LoginView = ({}) => {
 
   const [username, setUsername] = useState("");   
   const [password, setPassword] = useState("");
@@ -66,7 +66,6 @@ export const LoginView = ({onLoggedIn}) => {
          if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
-          // onLoggedIn(data.user, data.token);
           dispatch(setUser(data.user));
           dispatch(setToken(data.token));
          }else{
@@ -110,7 +109,6 @@ export const LoginView = ({onLoggedIn}) => {
     onSubmit={handleSubmit}
     style={{display:"flex", justifyContent:"center", flexDirection: 'column', alignItems:"center", }}>
       <Form controlId="formUsername">
-        {/* <Form.Label>Username:</Form.Label> */}
         <Form.Label ></Form.Label>
         <Form.Control
         placeholder="Username"
@@ -135,12 +133,7 @@ export const LoginView = ({onLoggedIn}) => {
           color: '#FFFFFF',
           fontSize: '20px'
         }}
-        // style={{
-        //   background: "radial-gradient(97.57% 210.75% at 0.9% 2.98%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%)",
-        //   filter: "drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.25))",
-        //   backdropFilter: "blur(27.5px)",
-        //   borderRadius: "10px"
-        // }}
+        
         
         
         />
@@ -150,7 +143,7 @@ export const LoginView = ({onLoggedIn}) => {
     
 
       <Form.Group controlId="formPassword">
-        {/* <Form.Label>Password:</Form.Label> */}
+        
         <Form.Control
           placeholder="Password"
           type="password"
@@ -187,7 +180,7 @@ export const LoginView = ({onLoggedIn}) => {
 
 
 
-      {/* <Button variant="primary" type="submit" style={{marginTop:"0.5rem"}}>LOGIN</Button> */}
+      
     </Form>
     <p style={{color:"#FFFFFF", whiteSpace:"nowrap"}}>Don't have an account?
     <a href="/signup"><i>SIGN UP</i></a>

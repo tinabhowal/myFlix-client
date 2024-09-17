@@ -12,7 +12,8 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 export const FavoriteButton = ({ movie }) => {
 
   const user = useSelector((state) => state.user.user);
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
+  const token = useSelector((state) => state.token.token)
 
   const dispatch = useDispatch();
 

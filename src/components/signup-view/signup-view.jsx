@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import "./signup-view.scss" ;
 import { useEffect } from "react";
-//import backgroundImage from "../../asset/background.svg";
+
 
 export const SignupView = () => {
     const [username, setUsername] = useState("");
@@ -112,17 +112,6 @@ export const SignupView = () => {
     padding: '0px',
     gap: '40px',
   
-  //     // backgroundImage: 'url("../../asset/background.svg")',
-  //     backgroundImage: `url(${backgroundImage})`,
-  
-  //     backgroundSize: 'cover',
-  //     height: '100vh',
-      
-      // display: flex;
-      // justify-content: center;
-      // align-items: center;
-      
-      /* Add any other styles you want */
     
   }}
    >

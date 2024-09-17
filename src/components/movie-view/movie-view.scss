@@ -1,7 +1,35 @@
-.back-button {
-    padding: 4px 12px 4px 12px;
-    color: whitesmoke;
-    background-color: dodgerblue;
-    border: none;
-    border-radius: 4px;
+
+
+  .similarMovies{
+    margin-top: 1rem;
   }
+
+  .similar-movie {
+    width: 30%;
+    text-align: center;
+  }
+  
+  .similar-movie img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  
+
+
+
+  /* Override Carousel control button colors */
+.carousel-control-prev,
+.carousel-control-next {
+  background-color: rgba(0, 0, 0, 0.5); /* Background color */
+  
+}
+
+
+
+/* Hover effect for Carousel control buttons */
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* Darker background on hover */
+}
